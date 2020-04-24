@@ -14,8 +14,11 @@ function Home() {
   const [userQuery, setUserQuery] = useState('');
   const { items: repositoriesList, isFetching } = repositories;
 
-  const fetchRepositoriesByName = (repositoryName) => {
-    dispatch(fetchRepositories(repositoryName));
+  const fetchRepositoriesByName = (givenName) => {
+    const repositoryName = givenName.trim();
+    if (repositoryName) {
+      dispatch(fetchRepositories(repositoryName));
+    }
   };
   const initiateFetchRepositories = useCallback(
     debounce(fetchRepositoriesByName, SEARCH_DEBOUNCE_INTERVAL),

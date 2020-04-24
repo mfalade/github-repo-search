@@ -26,8 +26,9 @@ export const repositoriesSlice = createSlice({
       state.totalItemsCount = payload.totalItemsCount;
     },
     executeFailureHandler: (state, { payload }) => {
-      state.error = payload;
       state.isFetching = false;
+      state.error = payload;
+      state.items = [];
     },
   },
 });
