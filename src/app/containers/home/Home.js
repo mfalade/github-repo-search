@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
 
-import { SEARCH_DEBOUNCE_INTERVAL } from '../../../config';
+import { SEARCH_DEBOUNCE_INTERVAL } from 'config';
 
 function Home() {
   const [userQuery, setUserQuery] = useState('');
