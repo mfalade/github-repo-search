@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { GITHUB_API_URL } from 'config';
 
-export const fetchRepositories = async (repositoryName) => {
+export const fetchRepositoriesByName = async (repositoryName) => {
   const normalizedValue = repositoryName.trim();
   if (!normalizedValue) {
     return;
