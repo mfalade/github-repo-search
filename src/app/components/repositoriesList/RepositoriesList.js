@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { LIST_ITEMS_PER_PAGE } from 'app/config';
+
+import { getSearchValue } from './helpers';
 
 function RepositoriesList({ repositories, currentPage, userQuery }) {
   const { items: repositoriesList, isFetching, totalNumPages } = repositories;
@@ -13,7 +16,13 @@ function RepositoriesList({ repositories, currentPage, userQuery }) {
       } of ${totalNumPages} items for ${userQuery}`}</h4>
       <ul>
         {repositoriesList.map((repository) => (
-          <li key={repository.id}>{repository.full_name}</li>
+          <li key={repository.id}>
+            <Link
+              to={{ pathname: '/repo', search: getSearchValue(repository) }}
+            >
+              {repository.full_name}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

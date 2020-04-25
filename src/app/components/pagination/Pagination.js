@@ -3,6 +3,10 @@ import ReactPaginate from 'react-paginate';
 import PropTypes from 'prop-types';
 
 function Pagination({ totalNumPages, onPageSelect }) {
+  if (!totalNumPages) {
+    return null;
+  }
+
   return (
     <ReactPaginate
       previousLabel={'previous'}
@@ -15,8 +19,13 @@ function Pagination({ totalNumPages, onPageSelect }) {
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  totalNumPages: PropTypes.number.isRequired,
+  currentPage: PropTypes.number,
+  totalNumPages: PropTypes.number,
+};
+
+Pagination.defaultProps = {
+  currentPage: 0,
+  totalNumPages: 0,
 };
 
 export default Pagination;

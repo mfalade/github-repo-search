@@ -1,9 +1,16 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from './containers/home';
+import routes from './routes';
 
 function App() {
-  return <Home />;
+  return (
+    <Switch>
+      {routes.map(({ id, ...route }) => (
+        <Route {...route} key={id} />
+      ))}
+    </Switch>
+  );
 }
 
 export default App;

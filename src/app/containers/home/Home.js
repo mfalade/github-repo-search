@@ -28,15 +28,15 @@ function Home() {
   );
   const handleSearchInputChange = ({ target }) => {
     setUserQuery(target.value);
-    debounceGetRepositories(target.value, 1);
+    debounceGetRepositories(target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    debounceGetRepositories(userQuery, 1);
+    debounceGetRepositories(userQuery);
   };
   const handlePageSelect = async (page) => {
-    const { selected } = page;
-    getRepositories(userQuery, selected + 1);
+    const { selected: selectedPage } = page;
+    getRepositories(userQuery, selectedPage + 1);
   };
 
   return (
