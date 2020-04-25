@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import pick from 'lodash/pick';
 
 import { LIST_ITEMS_PER_PAGE } from 'app/config';
@@ -27,11 +28,20 @@ export const trimRepositoryFields = (response) => {
   return { ...others, items };
 };
 
-export const setPaginationData = (response) => {
+export const setPaginationData = (response, page) => {
   const totalItemsCount = response.total_count || 0;
   return {
     totalItemsCount,
     totalNumPages: Math.ceil(totalItemsCount / LIST_ITEMS_PER_PAGE),
     items: response.items,
+    currentPage: page,
   };
+};
+
+export const getErrorMessage = (apiError) => {
+  return (
+    get(apiError, 'response.data.message') ||
+    get(apiError, 'message') ||
+    'An error occurred'
+  );
 };

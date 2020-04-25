@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchRepositoriesByName } from 'app/api/github';
+import { getRepositories } from 'app/api/github';
 import { SLICES } from 'app/config';
 
-import { trimRepositoryFields, setPaginationData } from './helpers';
+import {
+  getErrorMessage,
+  trimRepositoryFields,
+  setPaginationData,
+} from './helpers';
 
 const repositoriesInitialState = {
   isFetching: false,
   items: [],
+  currentPage: 1,
   totalItemsCount: 0,
   totalNumPages: 0,
   error: null,
@@ -25,6 +30,7 @@ export const repositoriesSlice = createSlice({
       state.error = null;
       state.isFetching = false;
       state.items = payload.items;
+      state.currentPage = payload.currentPage;
       state.totalItemsCount = payload.totalItemsCount;
       state.totalNumPages = payload.totalNumPages;
     },
@@ -41,16 +47,19 @@ export const {
   executeFailureHandler,
 } = repositoriesSlice.actions;
 
-export const fetchRepositories = (repositoryName, page) => async (dispatch) => {
+export const fetchRepositories = (repositoryName, page = 1) => async (
+  dispatch,
+) => {
   try {
     dispatch(iniializeRequest());
     const requestPayload = { repositoryName, page };
-    const repositories = await fetchRepositoriesByName(requestPayload);
-    const trimmed = trimRepositoryFields(repositories);
-    const paginated = setPaginationData(trimmed);
+    const apiResponse = await getRepositories(requestPayload);
+    const trimmed = trimRepositoryFields(apiResponse);
+    const paginated = setPaginationData(trimmed, page);
     dispatch(executeSuccessHandler(paginated));
-  } catch (requestError) {
-    dispatch(executeFailureHandler(requestError));
+  } catch (apiError) {
+    const errorMessage = getErrorMessage(apiError);
+    dispatch(executeFailureHandler(errorMessage));
   }
 };
 

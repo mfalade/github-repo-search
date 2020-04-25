@@ -14,32 +14,29 @@ function Home() {
   const dispatch = useDispatch();
   const repositories = useSelector(repositoriesSelector);
   const [userQuery, setUserQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchRepositoriesByName = (givenName, page) => {
-    const repositoryName = givenName.trim();
-    if (repositoryName) {
-      dispatch(fetchRepositories(repositoryName, page));
+  const { currentPage, error, totalNumPages } = repositories;
+  const getRepositories = (repositoryName, page) => {
+    const normalizedName = repositoryName.trim();
+    if (normalizedName) {
+      dispatch(fetchRepositories(normalizedName, page));
     }
   };
-  const debouncedFetchRepositories = useCallback(
-    debounce(fetchRepositoriesByName, SEARCH_DEBOUNCE_INTERVAL),
+  const debounceGetRepositories = useCallback(
+    debounce(getRepositories, SEARCH_DEBOUNCE_INTERVAL),
     [],
   );
   const handleSearchInputChange = ({ target }) => {
     setUserQuery(target.value);
-    setCurrentPage(1);
-    debouncedFetchRepositories(target.value, 1);
+    debounceGetRepositories(target.value, 1);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setCurrentPage(1);
-    debouncedFetchRepositories(userQuery, 1);
+    debounceGetRepositories(userQuery, 1);
   };
-  const handlePageSelect = (page) => {
+  const handlePageSelect = async (page) => {
     const { selected } = page;
-    setCurrentPage(selected);
-    fetchRepositoriesByName(userQuery, selected + 1);
+    getRepositories(userQuery, selected + 1);
   };
 
   return (
@@ -53,13 +50,15 @@ function Home() {
         <button type="submit">Search</button>
       </form>
 
+      <p>{error}</p>
+
       <RepositoriesList
         userQuery={userQuery}
         repositories={repositories}
         currentPage={currentPage}
       />
       <Pagination
-        totalNumPages={repositories.totalNumPages}
+        totalNumPages={totalNumPages}
         onPageSelect={handlePageSelect}
       />
     </div>

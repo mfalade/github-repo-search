@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { GITHUB_API_URL, LIST_ITEMS_PER_PAGE } from 'app/config';
 
-export const fetchRepositoriesByName = async ({ repositoryName, page }) => {
+export const getRepositories = async ({ repositoryName, page }) => {
   const resource = `${GITHUB_API_URL}/search/repositories`;
   const params = {
     params: { q: repositoryName, page, per_page: LIST_ITEMS_PER_PAGE },

@@ -15,13 +15,8 @@ function Pagination({ totalNumPages, onPageSelect }) {
 }
 
 Pagination.propTypes = {
-  totalNumPages: PropTypes.number,
-  onPageSelect: PropTypes.func,
-};
-
-Pagination.defaultProps = {
-  totalNumPages: 0,
-  onPageSelect: () => {},
+  currentPage: PropTypes.number.isRequired,
+  totalNumPages: PropTypes.number.isRequired,
 };
 
 export default Pagination;
