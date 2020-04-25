@@ -2,12 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getRepositories } from 'app/api/github';
 import { SLICES } from 'app/config';
-
 import {
   getErrorMessage,
-  trimRepositoryFields,
+  trimRepositoriesFields,
   setPaginationData,
-} from './helpers';
+} from 'app/store/helpers';
 
 const repositoriesInitialState = {
   isFetching: false,
@@ -54,7 +53,8 @@ export const fetchRepositories = (repositoryName, page = 1) => async (
     dispatch(iniializeRequest());
     const requestPayload = { repositoryName, page };
     const apiResponse = await getRepositories(requestPayload);
-    const trimmed = trimRepositoryFields(apiResponse);
+    const { items, ...others } = apiResponse;
+    const trimmed = { ...others, items: trimRepositoriesFields(items) };
     const paginated = setPaginationData(trimmed, page);
     dispatch(executeSuccessHandler(paginated));
   } catch (apiError) {

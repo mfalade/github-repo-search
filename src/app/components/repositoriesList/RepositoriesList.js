@@ -6,14 +6,20 @@ import { LIST_ITEMS_PER_PAGE } from 'app/config';
 
 import { getSearchValue } from './helpers';
 
-function RepositoriesList({ repositories, currentPage, userQuery }) {
-  const { items: repositoriesList, isFetching, totalNumPages } = repositories;
-  const renderLoader = () => <>Fetching .. </>;
-  const renderRepositoriesList = () => (
+function RepositoriesList({ repositories, visible, currentPage, userQuery }) {
+  if (!visible) {
+    return null;
+  }
+
+  const { items: repositoriesList, totalItemsCount } = repositories;
+  const showSummrayText = userQuery && Boolean(totalItemsCount);
+  return (
     <div>
-      <h4>{`Showing ${
-        totalNumPages && currentPage * LIST_ITEMS_PER_PAGE
-      } of ${totalNumPages} items for ${userQuery}`}</h4>
+      {showSummrayText && (
+        <h4>{`Showing ${
+          currentPage * LIST_ITEMS_PER_PAGE
+        } of ${totalItemsCount} items for ${userQuery}`}</h4>
+      )}
       <ul>
         {repositoriesList.map((repository) => (
           <li key={repository.id}>
@@ -22,22 +28,26 @@ function RepositoriesList({ repositories, currentPage, userQuery }) {
             >
               {repository.full_name}
             </Link>
+            <p>{repository.description}</p>
           </li>
         ))}
       </ul>
     </div>
   );
-  return <div>{isFetching ? renderLoader() : renderRepositoriesList()}</div>;
 }
 
 RepositoriesList.propTypes = {
+  visible: PropTypes.bool,
   repositories: PropTypes.shape({
     items: PropTypes.array,
-    isFetching: PropTypes.bool,
     totalNumPages: PropTypes.number,
   }).isRequired,
   currentPage: PropTypes.number.isRequired,
   userQuery: PropTypes.string.isRequired,
+};
+
+RepositoriesList.defaultProps = {
+  visible: true,
 };
 
 export default RepositoriesList;

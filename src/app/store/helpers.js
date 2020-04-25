@@ -3,7 +3,7 @@ import pick from 'lodash/pick';
 
 import { LIST_ITEMS_PER_PAGE } from 'app/config';
 
-export const trimRepositoryFields = (response) => {
+export const trimRepositoryFields = (repository) => {
   // Pick only values we care about as to reduce the
   // size of total items saved to the store.
   const targetFields = [
@@ -21,11 +21,11 @@ export const trimRepositoryFields = (response) => {
     'open_issues_count',
     'watchers_count',
   ];
-  const { items: repositoriesList, ...others } = response;
-  const items = repositoriesList.map((repository) => {
-    return pick(repository, targetFields);
-  });
-  return { ...others, items };
+  return pick(repository, targetFields);
+};
+
+export const trimRepositoriesFields = (repositories) => {
+  return repositories.map(trimRepositoryFields);
 };
 
 export const setPaginationData = (response, page) => {

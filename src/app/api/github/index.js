@@ -14,3 +14,13 @@ export const getRepositories = async ({ repositoryName, page }) => {
     throw requestError;
   }
 };
+
+export const getRepository = async (repositoryName) => {
+  const resource = `${GITHUB_API_URL}/repos/${repositoryName}`;
+  try {
+    const response = await axios.get(resource);
+    return response.data;
+  } catch (requestError) {
+    throw requestError;
+  }
+};
