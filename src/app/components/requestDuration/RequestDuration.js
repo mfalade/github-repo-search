@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 
 import { getDuration } from './helpers';
 
-function RequestDuration({ requestStart, requestEnd }) {
+function RequestDuration({ visible, requestStart, requestEnd }) {
   const duration = getDuration(requestStart, requestEnd);
-  return <p>The search was completed in {duration}.</p>;
+  return visible && <p>The search was completed in {duration}.</p>;
 }
 
 RequestDuration.propTypes = {
+  visible: PropTypes.bool,
   requestStart: PropTypes.number,
   requestEnd: PropTypes.number,
 };
 
 RequestDuration.defaultProps = {
+  visible: false,
   requestStart: 0,
   requestEnd: 0,
 };

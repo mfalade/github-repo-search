@@ -7,6 +7,7 @@ import Loading from 'app/components/loading';
 import Pagination from 'app/components/pagination';
 import RequestDuration from 'app/components/requestDuration';
 import RepositoriesList from 'app/components/repositoriesList';
+import SearchSummary from 'app/components/searchSummary';
 import {
   fetchRepositories,
   repositoriesSelector,
@@ -60,16 +61,20 @@ function Home() {
         <button type="submit">Search</button>
       </form>
 
+      <SearchSummary userQuery={userQuery} repositories={repositories} />
       <Error visible={Boolean(error)} message={error} />
       <Loading visible={isFetching} />
-      <RequestDuration requestStart={requestStart} requestEnd={requestEnd} />
+      <RequestDuration
+        visible={Boolean(userQuery)}
+        requestStart={requestStart}
+        requestEnd={requestEnd}
+      />
       <RepositoriesList
         visible={!isFetching}
-        userQuery={userQuery}
-        repositories={repositories}
-        currentPage={currentPage}
+        repositories={repositories.items}
       />
       <Pagination
+        currentPage={currentPage}
         totalNumPages={totalNumPages}
         onPageSelect={handlePageSelect}
       />
