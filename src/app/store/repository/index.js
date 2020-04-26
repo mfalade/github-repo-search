@@ -14,7 +14,7 @@ export const repositorySlice = createSlice({
   name: SLICES.REPOSITORY,
   initialState: repositoryInitialState,
   reducers: {
-    iniializeRequest: (state) => {
+    initializeRequest: (state) => {
       state.isFetching = true;
       state.error = null;
     },
@@ -31,7 +31,7 @@ export const repositorySlice = createSlice({
 });
 
 export const {
-  iniializeRequest,
+  initializeRequest,
   executeSuccessHandler,
   executeFailureHandler,
 } = repositorySlice.actions;
@@ -40,7 +40,7 @@ export const fetchRepositoryDetails = (repositoryName) => async (
   dispatch,
   getState,
 ) => {
-  dispatch(iniializeRequest());
+  dispatch(initializeRequest());
   try {
     let repository;
     const repositories = repositoriesSelector(getState());

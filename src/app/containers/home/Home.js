@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce';
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
 import Pagination from 'app/components/pagination';
+import RequestDuration from 'app/components/requestDuration';
 import RepositoriesList from 'app/components/repositoriesList';
 import {
   fetchRepositories,
@@ -17,7 +18,14 @@ function Home() {
   const repositories = useSelector(repositoriesSelector);
   const [userQuery, setUserQuery] = useState('');
 
-  const { currentPage, error, isFetching, totalNumPages } = repositories;
+  const {
+    currentPage,
+    error,
+    isFetching,
+    totalNumPages,
+    requestStart,
+    requestEnd,
+  } = repositories;
   const getRepositories = (repositoryName, page) => {
     const normalizedName = repositoryName.trim();
     if (normalizedName) {
@@ -54,6 +62,7 @@ function Home() {
 
       <Error visible={Boolean(error)} message={error} />
       <Loading visible={isFetching} />
+      <RequestDuration requestStart={requestStart} requestEnd={requestEnd} />
       <RepositoriesList
         visible={!isFetching}
         userQuery={userQuery}

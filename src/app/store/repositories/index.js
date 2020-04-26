@@ -15,15 +15,25 @@ const repositoriesInitialState = {
   totalItemsCount: 0,
   totalNumPages: 0,
   error: null,
+  requestStart: 0,
+  requestEnd: 0,
 };
 
 export const repositoriesSlice = createSlice({
   name: SLICES.REPOSITORIES,
   initialState: repositoriesInitialState,
   reducers: {
-    iniializeRequest: (state) => {
+    initializeRequest: (state) => {
+      state.requestStart = 0;
+      state.requestEnd = 0;
       state.isFetching = true;
       state.error = null;
+    },
+    setRequestStartTime: (state) => {
+      state.requestStart = new Date().getTime();
+    },
+    setRequestEndTime: (state) => {
+      state.requestEnd = new Date().getTime();
     },
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
@@ -41,21 +51,28 @@ export const repositoriesSlice = createSlice({
 });
 
 export const {
-  iniializeRequest,
+  initializeRequest,
   executeSuccessHandler,
   executeFailureHandler,
+  setRequestStartTime,
+  setRequestEndTime,
 } = repositoriesSlice.actions;
 
 export const fetchRepositories = (repositoryName, page = 1) => async (
   dispatch,
 ) => {
   try {
-    dispatch(iniializeRequest());
+    dispatch(initializeRequest());
+    dispatch(setRequestStartTime());
+
     const requestPayload = { repositoryName, page };
     const apiResponse = await getRepositories(requestPayload);
+    dispatch(setRequestEndTime());
+
     const { items, ...others } = apiResponse;
     const trimmed = { ...others, items: trimRepositoriesFields(items) };
     const paginated = setPaginationData(trimmed, page);
+
     dispatch(executeSuccessHandler(paginated));
   } catch (apiError) {
     const errorMessage = getErrorMessage(apiError);
