@@ -4,19 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
+import { useTimeZone } from 'app/hooks';
 import {
   fetchRepositoryDetails,
   repositorySelector,
 } from 'app/store/repository';
 
-import { getRepoUrlFromQuery } from './helpers';
+import { getRepoUrlFromQuery, getRelativeCreationTime } from './helpers';
 
 function Repo() {
   const dispatch = useDispatch();
   const repository = useSelector(repositorySelector);
   const location = useLocation();
+  const timeZone = useTimeZone();
+
   const repoUrl = getRepoUrlFromQuery(location);
   const { data, isFetching, error } = repository;
+  const created = getRelativeCreationTime(data.created_at, timeZone);
 
   useEffect(() => {
     dispatch(fetchRepositoryDetails(repoUrl));
@@ -33,7 +37,7 @@ function Repo() {
           <p>Description: {data.description}</p>
           <p>Language: {data.language}</p>
           <p>Is Private: {String(data.private)}</p>
-          <p>Created at: {data.created_at}</p>
+          <p>Created: {created}</p>
           <p>Watchers count: {data.watchers_count}</p>
           <p>Forks count: {data.forks_count}</p>
           <p>Open issues count: {data.open_issues_count}</p>
