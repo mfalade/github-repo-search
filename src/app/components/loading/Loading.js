@@ -10,7 +10,7 @@ function Loading({ visible }) {
 
   return (
     <LoadingContainer>
-      <h2>Fetching results ...</h2>
+      <h2>Fetching ...</h2>
     </LoadingContainer>
   );
 }

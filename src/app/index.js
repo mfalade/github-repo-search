@@ -23,7 +23,7 @@ function App() {
         </Switch>
       </Main>
 
-      <Footer>Submission by Mayowa Falade</Footer>
+      <Footer>Submitted by Mayowa Falade</Footer>
     </AppContainer>
   );
 }

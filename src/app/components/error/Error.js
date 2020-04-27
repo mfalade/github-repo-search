@@ -8,7 +8,7 @@ function Error({ visible, message }) {
     return null;
   }
 
-  return <ErrorMessage>Error: {message}</ErrorMessage>;
+  return <ErrorMessage>{message}</ErrorMessage>;
 }
 
 Error.propTypes = {

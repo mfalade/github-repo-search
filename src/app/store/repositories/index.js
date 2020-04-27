@@ -28,6 +28,7 @@ export const repositoriesSlice = createSlice({
     initializeRequest: (state) => {
       state.requestStart = 0;
       state.requestEnd = 0;
+      state.isFetchComplete = false;
       state.isFetching = true;
       state.error = null;
     },

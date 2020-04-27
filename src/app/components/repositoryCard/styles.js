@@ -31,6 +31,10 @@ export const Header = styled.header`
   }
 `;
 
+export const AvatarContainer = styled.div`
+  min-width: 40px;
+`;
+
 export const RepoLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.color.purple2};
@@ -52,4 +56,8 @@ export const ProgrammingLanguage = styled.span`
   margin: ${({ theme }) => theme.spacing.xs} 0;
   padding: ${({ theme }) => theme.spacing.xxxs}
     ${({ theme }) => theme.spacing.xs};
+`;
+
+export const Description = styled.p`
+  margin: ${({ theme }) => theme.spacing.sm} 0;
 `;

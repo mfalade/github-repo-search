@@ -10,7 +10,6 @@ export const PaginationContainer = styled.div`
   li {
     cursor: pointer;
     display: inline-block;
-    padding: 0 ${({ theme }) => theme.spacing.sm};
     margin: ${({ theme }) => theme.spacing.xxs};
     border: 1px solid ${({ theme }) => theme.color.purple1};
     color: ${({ theme }) => theme.color.purple1};
@@ -32,6 +31,7 @@ export const PaginationContainer = styled.div`
     }
 
     a {
+      padding: 0 ${({ theme }) => theme.spacing.sm};
       outline: none;
     }
   }

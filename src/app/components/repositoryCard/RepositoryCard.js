@@ -8,6 +8,8 @@ import {
   Header,
   ProgrammingLanguage,
   RepoLink,
+  AvatarContainer,
+  Description,
 } from './styles';
 import { getSearchValue, truncateDescription } from './helpers';
 
@@ -16,18 +18,21 @@ function RepositoryCard({ repository }) {
   return (
     <RepositoryCardContainer language={language}>
       <Header>
-        <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
-        <div>
-          <RepoLink
-            to={{ pathname: '/repo', search: getSearchValue(repository) }}
-          >
-            {repository.full_name}
-          </RepoLink>
-        </div>
+        <AvatarContainer>
+          <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
+        </AvatarContainer>
+        <p>{get(repository, 'owner.login')}</p>
       </Header>
+      <div>
+        <RepoLink
+          to={{ pathname: '/repo', search: getSearchValue(repository) }}
+        >
+          {repository.full_name}
+        </RepoLink>
+      </div>
       <hr />
+      <Description>{truncateDescription(repository.description)}</Description>
       {language && <ProgrammingLanguage>{language}</ProgrammingLanguage>}
-      <p>{truncateDescription(repository.description)}</p>
     </RepositoryCardContainer>
   );
 }

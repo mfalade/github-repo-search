@@ -11,6 +11,7 @@ import {
 } from 'app/store/repository';
 
 import { getRepoUrlFromQuery, getRelativeCreationTime } from './helpers';
+import { RepoContainer, Paragraph, Highlight } from './styles';
 
 function Repo() {
   const dispatch = useDispatch();
@@ -26,27 +27,41 @@ function Repo() {
     dispatch(fetchRepositoryDetails(repoUrl));
   }, [dispatch, repoUrl]);
 
+  const renderedItems = [
+    { label: 'Name', value: data.full_name },
+    { label: 'Description', value: data.description },
+    { label: 'Language', value: data.language },
+    { label: 'Is Private', value: String(data.private) },
+    { label: 'Created', value: created },
+    { label: 'Watchers count', value: data.watchers_count },
+    { label: 'Forks count', value: data.forks_count },
+    { label: 'Open issues count', value: data.open_issues_count },
+  ];
+
   return (
-    <div>
-      <Link to="/">Back to Home Page</Link>
+    <RepoContainer>
+      <Paragraph>
+        <Link to="/">Back to Home Page</Link>
+      </Paragraph>
+      <br />
       <Loading visible={isFetching} />
       <Error visible={Boolean(error)} message={error} />
       {!isFetching && (
         <div>
-          <p>Name: {data.full_name}</p>
-          <p>Description: {data.description}</p>
-          <p>Language: {data.language}</p>
-          <p>Is Private: {String(data.private)}</p>
-          <p>Created: {created}</p>
-          <p>Watchers count: {data.watchers_count}</p>
-          <p>Forks count: {data.forks_count}</p>
-          <p>Open issues count: {data.open_issues_count}</p>
-          <a href={data.html_url} target="_blank" rel="noopener noreferrer">
-            View on Github
-          </a>
+          {renderedItems.map((item) => (
+            <Paragraph key={item.label}>
+              {item.label}: <Highlight>{item.value}</Highlight>
+            </Paragraph>
+          ))}
+          <br />
+          <Paragraph>
+            <a href={data.html_url} target="_blank" rel="noopener noreferrer">
+              View on Github
+            </a>
+          </Paragraph>
         </div>
       )}
-    </div>
+    </RepoContainer>
   );
 }
 
