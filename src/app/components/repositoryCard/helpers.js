@@ -15,7 +15,6 @@ export const getSearchValue = (repository) => {
 
 export const getBackgroundColor = (language) => {
   const lang = lowerCase(language);
-  console.log(lang);
   return LANGUAGE_COLOR_MAP[lang] || LANGUAGE_COLOR_MAP['javascript'];
 };
 

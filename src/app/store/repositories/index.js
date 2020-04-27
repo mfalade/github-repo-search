@@ -9,6 +9,8 @@ import {
 } from 'app/store/helpers';
 
 const repositoriesInitialState = {
+  userQuery: '',
+  isFetchComplete: false,
   isFetching: false,
   items: [],
   currentPage: 1,
@@ -37,6 +39,7 @@ export const repositoriesSlice = createSlice({
     },
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
+      state.isFetchComplete = true;
       state.isFetching = false;
       state.items = payload.items;
       state.currentPage = payload.currentPage;
@@ -47,6 +50,10 @@ export const repositoriesSlice = createSlice({
       state.isFetching = false;
       state.error = payload;
     },
+    setUserQuery: (state, { payload }) => {
+      state.isFetchComplete = false;
+      state.userQuery = payload;
+    },
   },
 });
 
@@ -56,6 +63,7 @@ export const {
   executeFailureHandler,
   setRequestStartTime,
   setRequestEndTime,
+  setUserQuery,
 } = repositoriesSlice.actions;
 
 export const fetchRepositories = (repositoryName, page = 1) => async (

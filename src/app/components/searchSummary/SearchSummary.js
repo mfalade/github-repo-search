@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Text, Highlight } from './styles';
 
-function SearchSummary({ userQuery, repositories }) {
+function SearchSummary({ visible, userQuery, repositories }) {
+  if (!visible) {
+    return null;
+  }
+
   const { totalItemsCount } = repositories;
   const subject = totalItemsCount === 1 ? 'result' : 'results';
   const formattedItemsCount = new Intl.NumberFormat().format(totalItemsCount);
@@ -16,5 +21,21 @@ function SearchSummary({ userQuery, repositories }) {
     )
   );
 }
+
+SearchSummary.propTypes = {
+  visible: PropTypes.bool,
+  userQuery: PropTypes.string,
+  repositories: PropTypes.shape({
+    totalItemsCount: PropTypes.number,
+  }),
+};
+
+SearchSummary.defaultProps = {
+  visible: false,
+  userQuery: 'false',
+  repositories: {
+    totalItemsCount: 0,
+  },
+};
 
 export default SearchSummary;

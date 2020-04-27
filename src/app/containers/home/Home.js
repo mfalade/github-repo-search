@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash/debounce';
 
@@ -10,6 +10,7 @@ import RepositoriesList from 'app/components/repositoriesList';
 import SearchForm from 'app/components/searchForm';
 import SearchSummary from 'app/components/searchSummary';
 import {
+  setUserQuery,
   fetchRepositories,
   repositoriesSelector,
 } from 'app/store/repositories';
@@ -20,15 +21,16 @@ import { SearchFormHeader } from './styles';
 function Home() {
   const dispatch = useDispatch();
   const repositories = useSelector(repositoriesSelector);
-  const [userQuery, setUserQuery] = useState('');
 
   const {
     currentPage,
     error,
     isFetching,
+    isFetchComplete,
     totalNumPages,
     requestStart,
     requestEnd,
+    userQuery,
   } = repositories;
   const getRepositories = (repositoryName, page) => {
     const normalizedName = repositoryName.trim();
@@ -41,7 +43,7 @@ function Home() {
     [],
   );
   const handleValueChange = ({ target }) => {
-    setUserQuery(target.value);
+    dispatch(setUserQuery(target.value));
     debounceGetRepositories(target.value);
   };
   const handleFormSubmit = (event) => {
@@ -59,7 +61,7 @@ function Home() {
         <SearchFormHeader>
           <h2>Search for Github repositories</h2>
           <RequestDuration
-            visible={Boolean(userQuery)}
+            visible={isFetchComplete}
             requestStart={requestStart}
             requestEnd={requestEnd}
           />
@@ -70,11 +72,15 @@ function Home() {
           onFormSubmit={handleFormSubmit}
         />
       </section>
-      <SearchSummary userQuery={userQuery} repositories={repositories} />
+      <SearchSummary
+        visible={isFetchComplete}
+        userQuery={userQuery}
+        repositories={repositories}
+      />
       <Error visible={Boolean(error)} message={error} />
       <Loading visible={isFetching} />
       <RepositoriesList
-        visible={!isFetching && !error}
+        visible={isFetchComplete && !error}
         repositories={repositories.items}
       />
       <Pagination

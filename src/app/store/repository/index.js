@@ -56,7 +56,6 @@ export const fetchRepositoryDetails = (repositoryName) => async (
     const trimmed = trimRepositoryFields(repository);
     dispatch(executeSuccessHandler(trimmed));
   } catch (error) {
-    console.log(error, 'error ');
     const errorMessage = getErrorMessage(error);
     dispatch(executeFailureHandler(errorMessage));
   }
