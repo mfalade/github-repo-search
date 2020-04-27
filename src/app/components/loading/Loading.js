@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { LoadingContainer } from './styles';
+
 function Loading({ visible }) {
   if (!visible) {
     return null;
   }
 
-  return <h5>Loading content ...</h5>;
+  return (
+    <LoadingContainer>
+      <h2>Fetching results ...</h2>
+    </LoadingContainer>
+  );
 }
 
 Loading.propTypes = {

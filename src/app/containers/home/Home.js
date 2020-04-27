@@ -7,12 +7,15 @@ import Loading from 'app/components/loading';
 import Pagination from 'app/components/pagination';
 import RequestDuration from 'app/components/requestDuration';
 import RepositoriesList from 'app/components/repositoriesList';
+import SearchForm from 'app/components/searchForm';
 import SearchSummary from 'app/components/searchSummary';
 import {
   fetchRepositories,
   repositoriesSelector,
 } from 'app/store/repositories';
-import { SEARCH_DEBOUNCE_INTERVAL } from 'app/config';
+import { SEARCH_DEBOUNCE_INTERVAL, LIST_ITEMS_PER_PAGE } from 'app/config';
+
+import { SearchFormHeader } from './styles';
 
 function Home() {
   const dispatch = useDispatch();
@@ -37,11 +40,11 @@ function Home() {
     debounce(getRepositories, SEARCH_DEBOUNCE_INTERVAL),
     [],
   );
-  const handleSearchInputChange = ({ target }) => {
+  const handleValueChange = ({ target }) => {
     setUserQuery(target.value);
     debounceGetRepositories(target.value);
   };
-  const handleSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     getRepositories(userQuery);
   };
@@ -51,34 +54,36 @@ function Home() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+    <>
+      <section>
+        <SearchFormHeader>
+          <h2>Search for Github repositories</h2>
+          <RequestDuration
+            visible={Boolean(userQuery)}
+            requestStart={requestStart}
+            requestEnd={requestEnd}
+          />
+        </SearchFormHeader>
+        <SearchForm
           value={userQuery}
-          onChange={handleSearchInputChange}
+          onValueChange={handleValueChange}
+          onFormSubmit={handleFormSubmit}
         />
-        <button type="submit">Search</button>
-      </form>
-
+      </section>
       <SearchSummary userQuery={userQuery} repositories={repositories} />
       <Error visible={Boolean(error)} message={error} />
       <Loading visible={isFetching} />
-      <RequestDuration
-        visible={Boolean(userQuery)}
-        requestStart={requestStart}
-        requestEnd={requestEnd}
-      />
       <RepositoriesList
-        visible={!isFetching}
+        visible={!isFetching && !error}
         repositories={repositories.items}
       />
       <Pagination
+        visible={totalNumPages > LIST_ITEMS_PER_PAGE && !error}
         currentPage={currentPage}
         totalNumPages={totalNumPages}
         onPageSelect={handlePageSelect}
       />
-    </div>
+    </>
   );
 }
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Image } from 'react-bootstrap';
+import Masonry from 'react-masonry-css';
 
-import { getSearchValue } from './helpers';
+import RepositoryCard from 'app/components/repositoryCard';
+
+import { RepositoriesListContainer } from './styles';
 
 function RepositoriesList({ repositories, visible }) {
   if (!visible) {
@@ -11,21 +12,17 @@ function RepositoriesList({ repositories, visible }) {
   }
 
   return (
-    <div>
-      <ul>
+    <RepositoriesListContainer>
+      <Masonry
+        breakpointCols={5}
+        className="masonry-grid"
+        columnClassName="masonry-grid__column"
+      >
         {repositories.map((repository) => (
-          <li key={repository.id}>
-            <Image src="https://via.placeholder.com/50" roundedCircle />
-            <Link
-              to={{ pathname: '/repo', search: getSearchValue(repository) }}
-            >
-              {repository.full_name}
-            </Link>
-            <p>{repository.description}</p>
-          </li>
+          <RepositoryCard repository={repository} key={repository.id} />
         ))}
-      </ul>
-    </div>
+      </Masonry>
+    </RepositoriesListContainer>
   );
 }
 

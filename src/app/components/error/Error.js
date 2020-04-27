@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ErrorMessage } from './styles';
+
 function Error({ visible, message }) {
   if (!visible || !message) {
     return null;
   }
 
-  return <p>Error: {message}</p>;
+  return <ErrorMessage>Error: {message}</ErrorMessage>;
 }
 
 Error.propTypes = {
