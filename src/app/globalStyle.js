@@ -21,6 +21,11 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: 1px solid ${({ theme }) => theme.color.purple1};
     opacity: 0.1;
   }
+
+  button {
+    outline: none;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;

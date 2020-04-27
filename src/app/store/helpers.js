@@ -1,8 +1,6 @@
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 
-import { LIST_ITEMS_PER_PAGE } from 'app/config';
-
 export const trimRepositoryFields = (repository) => {
   // Pick only values we care about as to reduce the
   // size of total items saved to the store.
@@ -32,7 +30,6 @@ export const setPaginationData = (response, page) => {
   const totalItemsCount = response.total_count || 0;
   return {
     totalItemsCount,
-    totalNumPages: Math.ceil(totalItemsCount / LIST_ITEMS_PER_PAGE),
     items: response.items,
     currentPage: page,
   };

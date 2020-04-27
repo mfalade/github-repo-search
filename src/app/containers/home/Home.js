@@ -27,7 +27,7 @@ function Home() {
     error,
     isFetching,
     isFetchComplete,
-    totalNumPages,
+    totalItemsCount,
     requestStart,
     requestEnd,
     userQuery,
@@ -48,7 +48,7 @@ function Home() {
   };
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    getRepositories(userQuery);
+    getRepositories(userQuery, currentPage);
   };
   const handlePageSelect = async (page) => {
     const { selected: selectedPage } = page;
@@ -84,9 +84,9 @@ function Home() {
         repositories={repositories.items}
       />
       <Pagination
-        visible={totalNumPages > LIST_ITEMS_PER_PAGE && !error}
+        visible={totalItemsCount > LIST_ITEMS_PER_PAGE && !error}
         currentPage={currentPage}
-        totalNumPages={totalNumPages}
+        totalItemsCount={totalItemsCount}
         onPageSelect={handlePageSelect}
       />
     </>
