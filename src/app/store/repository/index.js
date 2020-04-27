@@ -15,6 +15,7 @@ export const repositorySlice = createSlice({
   initialState: repositoryInitialState,
   reducers: {
     initializeRequest: (state) => {
+      state.data = {};
       state.isFetching = true;
       state.error = null;
     },

@@ -22,6 +22,7 @@ function Repo() {
   const repoUrl = getRepoUrlFromQuery(location);
   const { data, isFetching, error } = repository;
   const created = getRelativeCreationTime(data.created_at, timeZone);
+  const showRepositoryDetails = !error && !isFetching;
 
   useEffect(() => {
     dispatch(fetchRepositoryDetails(repoUrl));
@@ -46,7 +47,7 @@ function Repo() {
       <br />
       <Loading visible={isFetching} />
       <Error visible={Boolean(error)} message={error} />
-      {!isFetching && (
+      {showRepositoryDetails && (
         <div>
           {renderedItems.map((item) => (
             <Paragraph key={item.label}>
