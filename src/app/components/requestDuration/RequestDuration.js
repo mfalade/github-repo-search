@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { getDuration } from './helpers';
+import { Highlight } from './styles';
 
 function RequestDuration({ visible, requestStart, requestEnd }) {
   const duration = getDuration(requestStart, requestEnd);
-  return visible && <p>The search was completed in {duration}.</p>;
+  return (
+    visible && (
+      <p>
+        The search was completed in <Highlight>{duration}</Highlight>.
+      </p>
+    )
+  );
 }
 
 RequestDuration.propTypes = {
