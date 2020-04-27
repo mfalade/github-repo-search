@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
-import { useTimeZone } from 'app/hooks';
+import { useTimeZone, useQueryParams } from 'app/hooks';
 import {
   fetchRepositoryDetails,
   repositorySelector,
 } from 'app/store/repository';
 
-import { getRepoUrlFromQuery, getRelativeCreationTime } from './helpers';
+import { getRelativeCreationTime } from './helpers';
 import { RepoContainer, Paragraph, Highlight } from './styles';
 
 function Repo() {
   const dispatch = useDispatch();
   const repository = useSelector(repositorySelector);
-  const location = useLocation();
   const timeZone = useTimeZone();
+  const queryParams = useQueryParams();
 
-  const repoUrl = getRepoUrlFromQuery(location);
+  const repoUrl = queryParams.name;
   const { data, isFetching, error } = repository;
   const created = getRelativeCreationTime(data.created_at, timeZone);
   const showRepositoryDetails = !error && !isFetching;
