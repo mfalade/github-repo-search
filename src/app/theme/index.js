@@ -8,7 +8,7 @@ export default {
     red: '#c33333',
   },
   font: {
-    family: '"Baloo Bhaina 2", cursive',
+    family: '"Baloo Bhaina 2", sans-serif',
     size: {
       xs: '0.9em',
       sm: '1.1em',

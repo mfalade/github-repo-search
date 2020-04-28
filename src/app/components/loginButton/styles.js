@@ -7,4 +7,5 @@ export const LoginButtonComponent = styled.button`
   border: 1px solid ${({ theme }) => theme.color.purple1};
   border-radius: ${({ theme }) => theme.spacing.xxs};
   font-size: ${({ theme }) => theme.font.size.xs};
+  font-family: ${({ theme }) => theme.font.family};
 `;
