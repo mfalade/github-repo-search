@@ -23,7 +23,7 @@ export const Footer = styled.footer`
 `;
 
 export const Main = styled.main`
-  min-height: calc(100vh - 200px)};
-  margin-top: ${({ theme }) => theme.spacing.md};
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.xxl}`};
+  min-height: calc(100vh - 320px)};
+  margin: ${({ theme }) => theme.spacing.xl} auto;
+  max-width: ${({ theme }) => theme.containerWidth};
 `;

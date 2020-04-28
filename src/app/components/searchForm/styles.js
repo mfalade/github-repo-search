@@ -19,13 +19,13 @@ export const TextInput = styled.input`
   opacity: 0.5;
   transition: opacity 300ms ease-in;
   font-size: ${({ theme }) => theme.font.size.lg};
+  font-family: ${({ theme }) => theme.font.family};
   color: ${({ theme }) => theme.color.white};
 
   &:focus {
     opacity: 1;
   }
   ::placeholder {
-    font-family: ${({ theme }) => theme.font.family};
     color: ${({ theme }) => theme.color.white};
   }
 `;

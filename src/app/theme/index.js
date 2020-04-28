@@ -34,4 +34,5 @@ export default {
   avatar: {
     sm: '20px',
   },
+  containerWidth: '1200px',
 };

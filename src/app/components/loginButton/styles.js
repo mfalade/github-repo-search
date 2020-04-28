@@ -8,4 +8,9 @@ export const LoginButtonComponent = styled.button`
   border-radius: ${({ theme }) => theme.spacing.xxs};
   font-size: ${({ theme }) => theme.font.size.xs};
   font-family: ${({ theme }) => theme.font.family};
+  box-shadow: ${({ theme }) => theme.boxShadow.sm};
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.boxShadow.md};
+  }
 `;
