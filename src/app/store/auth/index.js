@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import get from 'lodash/get';
 
 import { SLICES } from 'app/store/constants';
 import { authenticateUserByCode } from 'app/api/github';
@@ -44,9 +45,11 @@ export const authenticateUser = (authenticationCode) => async (dispatch) => {
   dispatch(initializeRequest());
   try {
     const response = await authenticateUserByCode(authenticationCode);
-    const { error, error_description } = response;
-    const errorMessage = error_description || error;
-    console.log(response, 'response ...');
+
+    const errorMessage =
+      get(response, 'error.message') ||
+      get(response, 'error_description') ||
+      get(response, 'error');
     if (errorMessage) {
       return dispatch(executeFailureHandler(errorMessage));
     }
@@ -56,7 +59,8 @@ export const authenticateUser = (authenticationCode) => async (dispatch) => {
     refreshGithubClientToken(authToken);
     dispatch(executeSuccessHandler(authToken));
   } catch (error) {
-    dispatch(executeFailureHandler(error));
+    const errorMessage = get(error, 'message') || 'An error occurred';
+    dispatch(executeFailureHandler(errorMessage));
   }
 };
 

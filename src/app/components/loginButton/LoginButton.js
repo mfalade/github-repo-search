@@ -6,7 +6,6 @@ import { getOauthLink } from './helpers';
 function LoginButton() {
   const handleClick = () => {
     const oauthLink = getOauthLink();
-    console.log(oauthLink, 'oauth link ');
     window.location = oauthLink;
   };
 
