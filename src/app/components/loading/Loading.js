@@ -9,7 +9,7 @@ function Loading({ visible }) {
   }
 
   return (
-    <LoadingContainer>
+    <LoadingContainer data-cy="loader">
       <h2>Fetching ...</h2>
     </LoadingContainer>
   );

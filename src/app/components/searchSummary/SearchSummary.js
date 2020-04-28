@@ -14,7 +14,7 @@ function SearchSummary({ visible, userQuery, repositories }) {
 
   return (
     Boolean(userQuery) && (
-      <Text>
+      <Text data-cy="search-summary">
         Found <Highlight>{formattedItemsCount}</Highlight> {` ${subject} for `}
         <Highlight>{userQuery}</Highlight>
       </Text>

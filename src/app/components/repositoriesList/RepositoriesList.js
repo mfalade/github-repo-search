@@ -10,11 +10,17 @@ function RepositoriesList({ repositories, visible }) {
   if (!visible) {
     return null;
   }
+  const breakPoints = {
+    default: 5,
+    1100: 4,
+    700: 3,
+    500: 1,
+  };
 
   return (
-    <RepositoriesListContainer>
+    <RepositoriesListContainer data-cy="search-results">
       <Masonry
-        breakpointCols={5}
+        breakpointCols={breakPoints}
         className="masonry-grid"
         columnClassName="masonry-grid__column"
       >

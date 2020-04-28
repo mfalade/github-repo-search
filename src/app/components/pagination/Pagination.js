@@ -13,7 +13,7 @@ function Pagination({ visible, totalItemsCount, currentPage, onPageSelect }) {
 
   const pageCount = Math.ceil(totalItemsCount / LIST_ITEMS_PER_PAGE);
   return (
-    <PaginationContainer>
+    <PaginationContainer data-cy="pagination">
       <ReactPaginate
         previousLabel={'previous'}
         nextLabel={'next'}

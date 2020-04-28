@@ -25,5 +25,6 @@ export const Footer = styled.footer`
 export const Main = styled.main`
   min-height: calc(100vh - 320px)};
   margin: ${({ theme }) => theme.spacing.xl} auto;
+  width: 90%;
   max-width: ${({ theme }) => theme.containerWidth};
 `;

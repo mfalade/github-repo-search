@@ -16,7 +16,7 @@ import { getSearchValue, truncateDescription } from './helpers';
 function RepositoryCard({ repository }) {
   const { language } = repository;
   return (
-    <RepositoryCardContainer language={language}>
+    <RepositoryCardContainer language={language} data-cy="search-item">
       <Header>
         <AvatarContainer>
           <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
@@ -25,6 +25,7 @@ function RepositoryCard({ repository }) {
       </Header>
       <div>
         <RepoLink
+          data-cy="repository-link"
           to={{ pathname: '/repo', search: getSearchValue(repository) }}
         >
           {repository.full_name}
