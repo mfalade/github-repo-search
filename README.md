@@ -14,6 +14,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn test:e2e`
+
+Launches a cypress test runner.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
@@ -21,6 +25,15 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br />
 
-### `TODOS`
+## Notes
 
-- Introduce Formik when implementing login flow
+Implementing Github OAuth came with a few challenges.
+
+The first challenge was that after a user logs in via the GitHub UI, they are redirected to this application with an authentication code as expected.
+
+I'm supposed to exchange this code for an access_token via Github's `/login/oauth/access_token` endpoint.
+
+The challenge is that, the API doesn't support CORS requests from the browser
+[Link to issue here](https://github.com/isaacs/github/issues/330)
+
+To resolve this, I had to create a NODEJS proxy to make the authentication request to retrieve the `access_token`

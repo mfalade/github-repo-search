@@ -22,7 +22,7 @@ function Repo() {
   const repoUrl = queryParams.name;
   const { data, isFetching, error } = repository;
   const created = getRelativeCreationTime(data.created_at, timeZone);
-  const showRepositoryDetails = !error && !isFetching;
+  const showRepositoryDetails = !error && !isFetching && repoUrl;
 
   useEffect(() => {
     if (repoUrl) {
@@ -41,6 +41,10 @@ function Repo() {
     { label: 'Open issues count', value: data.open_issues_count },
   ];
 
+  if (!repoUrl && !isFetching) {
+    return <Error visible message="No repository specified!" />;
+  }
+
   return (
     <RepoContainer>
       <Paragraph>
@@ -50,7 +54,7 @@ function Repo() {
       <Loading visible={isFetching} />
       <Error visible={Boolean(error)} message={error} />
       {showRepositoryDetails && (
-        <div>
+        <article data-cy="repository-details">
           {renderedItems.map((item) => (
             <Paragraph key={item.label}>
               {item.label}: <Highlight>{item.value}</Highlight>
@@ -62,7 +66,7 @@ function Repo() {
               View on Github
             </a>
           </Paragraph>
-        </div>
+        </article>
       )}
     </RepoContainer>
   );

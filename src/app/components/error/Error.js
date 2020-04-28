@@ -8,7 +8,7 @@ function Error({ visible, message }) {
     return null;
   }
 
-  return <ErrorMessage>{message}</ErrorMessage>;
+  return <ErrorMessage data-cy="error-message">{message}</ErrorMessage>;
 }
 
 Error.propTypes = {
