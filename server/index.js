@@ -17,6 +17,7 @@ const {
   PROXY_SERVER_PORT,
   REACT_APP_DOMAIN,
 } = process.env;
+const port = process.env.PORT || PROXY_SERVER_PORT;
 
 const corsMiddleware = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -29,9 +30,9 @@ function authenticate(code) {
   const payload = qs.stringify({
     code,
     client_id: REACT_APP_GITHUB_CLIENT_ID,
+    state: REACT_APP_GITHUB_SECRET_KEY,
     client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
     redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
-    state: REACT_APP_GITHUB_SECRET_KEY,
   });
   const reqOptions = {
     host: OAUTH_HOST,
@@ -48,6 +49,7 @@ function authenticate(code) {
       res.on('data', (chunk) => (body += chunk));
       res.on('end', () => resolve(qs.parse(body)));
     });
+    console.log('Authenticating: ', payload);
     req.write(payload);
     req.end();
     req.on('error', (e) => reject(e.message));
@@ -55,6 +57,11 @@ function authenticate(code) {
 }
 
 app.use(corsMiddleware);
+app.get('/', (req, res) => {
+  res
+    .status(200)
+    .send({ message: 'Server is up and running 🚀', status: '✅' });
+});
 app.get('/authenticate/:code', async (req, res) => {
   try {
     const response = await authenticate(req.code);
@@ -64,6 +71,6 @@ app.get('/authenticate/:code', async (req, res) => {
   }
 });
 
-app.listen(PROXY_SERVER_PORT, () => {
-  console.log(`Proxy server running on http://localhost:${PROXY_SERVER_PORT}`);
+app.listen(port, () => {
+  console.log(`Proxy server running on port :${port}`);
 });
