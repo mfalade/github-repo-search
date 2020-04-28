@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Form, TextInput, SubmitButton } from './styles';
 
 function SearchForm({ onFormSubmit, onValueChange, value }) {
+  const textInputRef = createRef();
+
+  useEffect(() => {
+    const element = textInputRef.current;
+    element && element.focus();
+  }, [textInputRef]);
+
   return (
     <Form onSubmit={onFormSubmit}>
       <TextInput
+        data-cy="search-input"
         type="text"
+        placeholder="Start typing to search"
+        ref={textInputRef}
         value={value}
         onChange={onValueChange}
-        placeholder="Start typing to search"
       />
       <SubmitButton type="submit">Submit</SubmitButton>
     </Form>
