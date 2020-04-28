@@ -10,8 +10,16 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 ${({ theme }) => theme.spacing.xl};
-  color: ${({ theme }) => theme.color.purple1};
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
+
+  a {
+    text-decoration: none;
+    outline: none;
+    border: none;
+    font-size: ${({ theme }) => theme.font.size.lg};
+    color: ${({ theme }) => theme.color.purple1};
+    font-weight: bold;
+  }
 `;
 
 export const Footer = styled.footer`

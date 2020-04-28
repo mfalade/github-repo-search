@@ -9,6 +9,7 @@ dotenv.config();
 const {
   REACT_APP_GITHUB_CLIENT_ID,
   REACT_APP_GITHUB_CLIENT_SECRET,
+  REACT_APP_GITHUB_SECRET_KEY,
   OAUTH_HOST,
   OAUTH_PORT,
   OAUTH_PATH,
@@ -30,6 +31,7 @@ function authenticate(code) {
     client_id: REACT_APP_GITHUB_CLIENT_ID,
     client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
     redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
+    state: REACT_APP_GITHUB_SECRET_KEY,
   });
   const reqOptions = {
     host: OAUTH_HOST,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import { useTimeZone } from 'app/hooks';
 import LoginButton from 'app/components/loginButton';
@@ -13,7 +13,7 @@ function App() {
   return (
     <AppContainer>
       <Header>
-        <h2>Repo Search</h2>
+        <Link to="/">Repo Search</Link>
         <LoginButton />
       </Header>
 
