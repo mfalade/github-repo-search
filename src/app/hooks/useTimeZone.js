@@ -10,8 +10,10 @@ export default function useTimeZone() {
   const successHandler = async ({ coords }) => {
     const tz = await getTimezone(coords);
     const timeZone = tz.timeZoneId;
-    localStorage.setItem('TIME_ZONE', timeZone);
-    setUserTimeZone(timeZone);
+    if (timeZone) {
+      localStorage.setItem('TIME_ZONE', timeZone);
+      setUserTimeZone(timeZone);
+    }
   };
 
   const errorHandler = () => {

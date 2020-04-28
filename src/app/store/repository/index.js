@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getRepository } from 'app/api/github';
-import { SLICES } from 'app/config';
+import { SLICES } from 'app/store/constants';
 import { repositoriesSelector } from 'app/store/repositories';
 import { getErrorMessage, trimRepositoryFields } from 'app/store/helpers';
 
-const repositoryInitialState = {
+const initialRepositoryState = {
   isFetching: false,
   data: {},
 };
 
 export const repositorySlice = createSlice({
   name: SLICES.REPOSITORY,
-  initialState: repositoryInitialState,
+  initialState: initialRepositoryState,
   reducers: {
     initializeRequest: (state) => {
       state.data = {};

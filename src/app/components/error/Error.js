@@ -12,12 +12,12 @@ function Error({ visible, message }) {
 }
 
 Error.propTypes = {
-  errorMessage: PropTypes.string,
+  message: PropTypes.string,
   visible: PropTypes.bool,
 };
 
 Error.defaultProps = {
-  errorMessage: null,
+  message: null,
   visible: false,
 };
 

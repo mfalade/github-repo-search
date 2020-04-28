@@ -25,7 +25,9 @@ function Repo() {
   const showRepositoryDetails = !error && !isFetching;
 
   useEffect(() => {
-    dispatch(fetchRepositoryDetails(repoUrl));
+    if (repoUrl) {
+      dispatch(fetchRepositoryDetails(repoUrl));
+    }
   }, [dispatch, repoUrl]);
 
   const renderedItems = [

@@ -4,7 +4,6 @@ const qs = require('qs');
 const https = require('https');
 
 const app = express();
-const port = 3001;
 
 dotenv.config();
 const {
@@ -14,6 +13,8 @@ const {
   OAUTH_PORT,
   OAUTH_PATH,
   OAUTH_METHOD,
+  PROXY_SERVER_PORT,
+  REACT_APP_DOMAIN,
 } = process.env;
 
 const corsMiddleware = (req, res, next) => {
@@ -28,6 +29,7 @@ function authenticate(code) {
     code,
     client_id: REACT_APP_GITHUB_CLIENT_ID,
     client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
+    redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
   });
   const reqOptions = {
     host: OAUTH_HOST,
@@ -54,16 +56,12 @@ app.use(corsMiddleware);
 app.get('/authenticate/:code', async (req, res) => {
   try {
     const response = await authenticate(req.code);
-    res.status(200).json({
-      code: req.params.code,
-      received: true,
-      response,
-    });
+    res.status(200).send(response);
   } catch (apiError) {
     res.status(500).send(apiError);
   }
 });
 
-app.listen(port, () => {
-  console.log(`Proxy server running on http://localhost:${port}`);
+app.listen(PROXY_SERVER_PORT, () => {
+  console.log(`Proxy server running on http://localhost:${PROXY_SERVER_PORT}`);
 });

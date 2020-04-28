@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getRepositories } from 'app/api/github';
-import { SLICES } from 'app/config';
+import { SLICES } from 'app/store/constants';
 import {
   getErrorMessage,
   trimRepositoriesFields,
   setPaginationData,
 } from 'app/store/helpers';
 
-const repositoriesInitialState = {
+const initialRepositoriesState = {
   userQuery: '',
   isFetchComplete: false,
   isFetching: false,
@@ -23,7 +23,7 @@ const repositoriesInitialState = {
 
 export const repositoriesSlice = createSlice({
   name: SLICES.REPOSITORIES,
-  initialState: repositoriesInitialState,
+  initialState: initialRepositoriesState,
   reducers: {
     initializeRequest: (state) => {
       state.requestStart = 0;

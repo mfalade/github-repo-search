@@ -10,6 +10,7 @@ export default {
   font: {
     family: '"Baloo Bhaina 2", cursive',
     size: {
+      xs: '0.9em',
       sm: '1.1em',
       md: '1.4em',
       lg: '1.6em',

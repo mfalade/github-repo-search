@@ -8,6 +8,7 @@ export const Header = styled.header`
   height: 100px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 ${({ theme }) => theme.spacing.xl};
   color: ${({ theme }) => theme.color.purple1};
   box-shadow: ${({ theme }) => theme.boxShadow.lg};
