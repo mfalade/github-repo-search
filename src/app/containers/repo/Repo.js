@@ -18,7 +18,7 @@ function Repo() {
   const dispatch = useDispatch();
   const repository = useSelector(repositorySelector);
   const timeZone = useTimeZone();
-  const queryParams = useQueryParams();
+  const { queryParams, hasParsedQueryParams } = useQueryParams();
 
   const repoUrl = queryParams.name;
   const { data, readme, isFetching, error } = repository;
@@ -42,7 +42,7 @@ function Repo() {
     { label: 'Open issues count', value: data.open_issues_count },
   ];
 
-  if (!repoUrl && !isFetching) {
+  if (hasParsedQueryParams && !repoUrl) {
     return <Error visible message="No repository specified!" />;
   }
 
@@ -52,11 +52,13 @@ function Repo() {
         <Paragraph>
           <Link to="/">Back to Home Page</Link>
         </Paragraph>
-        <Paragraph>
-          <a href={data.html_url} target="_blank" rel="noopener noreferrer">
-            View on Github
-          </a>
-        </Paragraph>
+        {showRepositoryDetails && (
+          <Paragraph>
+            <a href={data.html_url} target="_blank" rel="noopener noreferrer">
+              View on Github
+            </a>
+          </Paragraph>
+        )}
       </Header>
       <br />
       <Loading visible={isFetching} />

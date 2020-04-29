@@ -9,7 +9,8 @@ import { authenticateUser, authSelector } from 'app/store/auth';
 function Oauth() {
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
-  const { code: authenticationCode } = useQueryParams();
+  const { queryParams } = useQueryParams();
+  const { code: authenticationCode } = queryParams;
 
   const matchesSecretToken = true; // check for stored secret token
 

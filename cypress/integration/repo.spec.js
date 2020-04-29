@@ -16,5 +16,6 @@ describe('Repository page', () => {
     cy.visit('/repo?name=facebook/react');
     cy.get('[data-cy=error-message]').should('not.be.visible');
     cy.get('[data-cy=repository-details]').should('be.visible');
+    cy.get('[data-cy=readme]').should('be.visible');
   });
 });

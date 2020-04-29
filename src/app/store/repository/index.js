@@ -6,7 +6,7 @@ import { repositoriesSelector } from 'app/store/repositories';
 import { getErrorMessage, trimRepositoryFields } from 'app/store/helpers';
 
 const initialRepositoryState = {
-  isFetching: true,
+  isFetching: false,
   data: {},
   readme: '',
 };
