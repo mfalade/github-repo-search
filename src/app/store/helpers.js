@@ -18,6 +18,7 @@ export const trimRepositoryFields = (repository) => {
     'forks_count',
     'open_issues_count',
     'watchers_count',
+    'readme',
   ];
   return pick(repository, targetFields);
 };

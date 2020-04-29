@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
+import Readme from 'app/components/readme';
 import { useTimeZone, useQueryParams } from 'app/hooks';
 import {
   fetchRepositoryDetails,
@@ -20,7 +21,7 @@ function Repo() {
   const queryParams = useQueryParams();
 
   const repoUrl = queryParams.name;
-  const { data, isFetching, error } = repository;
+  const { data, readme, isFetching, error } = repository;
   const created = getRelativeCreationTime(data.created_at, timeZone);
   const showRepositoryDetails = !error && !isFetching && repoUrl;
 
@@ -66,6 +67,7 @@ function Repo() {
               View on Github
             </a>
           </Paragraph>
+          <Readme source={readme} />
         </article>
       )}
     </RepoContainer>

@@ -2,6 +2,7 @@ export default {
   color: {
     purple1: '#473889',
     purple2: '#776fc4',
+    purple3: '#cac5df',
     white: '#FFFFFF',
     gray1: '#f7f6fc',
     gray2: '#333642',

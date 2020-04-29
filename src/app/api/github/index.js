@@ -17,11 +17,23 @@ export const getRepositories = async ({ repositoryName, page }) => {
   }
 };
 
-export const getRepository = async (repositoryName) => {
-  const resource = `${GITHUB.API_URL}/repos/${repositoryName}`;
+export const getReadme = async (repositoryName) => {
   try {
-    const response = await githubClient.get(resource);
-    return response.data;
+    const preferredReadmeResource = `${GITHUB.API_URL}/repos/${repositoryName}/readme`;
+    const preferredReadme = await githubClient.get(preferredReadmeResource);
+    const data = preferredReadme.data || {};
+    const readme = await githubClient.get(data.download_url);
+    return readme.data;
+  } catch {
+    return '';
+  }
+};
+
+export const getRepository = async (repositoryName) => {
+  const repoResource = `${GITHUB.API_URL}/repos/${repositoryName}`;
+  try {
+    const repo = await githubClient.get(repoResource);
+    return repo.data;
   } catch (requestError) {
     throw requestError;
   }
