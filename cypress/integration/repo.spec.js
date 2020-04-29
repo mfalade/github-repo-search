@@ -16,6 +16,13 @@ describe('Repository page', () => {
     cy.visit('/repo?name=facebook/react');
     cy.get('[data-cy=error-message]').should('not.be.visible');
     cy.get('[data-cy=repository-details]').should('be.visible');
+  });
+
+  it('should lazy load readme content', () => {
+    cy.get('[data-cy=footer]').scrollIntoView();
+    cy.get('[data-cy=readme-container]').should('be.visible');
+    cy.get('[data-cy=loader]').should('be.visible');
+    cy.wait(500);
     cy.get('[data-cy=readme]').should('be.visible');
   });
 });

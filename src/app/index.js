@@ -25,7 +25,7 @@ function App() {
         </Switch>
       </Main>
 
-      <Footer>Submitted by Mayowa Falade</Footer>
+      <Footer data-cy="footer">Submitted by Mayowa Falade</Footer>
     </AppContainer>
   );
 }
