@@ -84,7 +84,7 @@ function Home() {
         repositories={repositories.items}
       />
       <Pagination
-        visible={totalItemsCount > LIST_ITEMS_PER_PAGE}
+        visible={totalItemsCount > LIST_ITEMS_PER_PAGE && userQuery}
         currentPage={currentPage}
         totalItemsCount={totalItemsCount}
         onPageSelect={handlePageSelect}
