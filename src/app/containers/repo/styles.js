@@ -13,3 +13,8 @@ export const Highlight = styled.span`
 export const RepoContainer = styled.section`
   margin-top: ${({ theme }) => theme.spacing.md};
 `;
+
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;

@@ -12,7 +12,7 @@ import {
 } from 'app/store/repository';
 
 import { getRelativeCreationTime } from './helpers';
-import { RepoContainer, Paragraph, Highlight } from './styles';
+import { RepoContainer, Paragraph, Highlight, Header } from './styles';
 
 function Repo() {
   const dispatch = useDispatch();
@@ -48,9 +48,16 @@ function Repo() {
 
   return (
     <RepoContainer>
-      <Paragraph>
-        <Link to="/">Back to Home Page</Link>
-      </Paragraph>
+      <Header>
+        <Paragraph>
+          <Link to="/">Back to Home Page</Link>
+        </Paragraph>
+        <Paragraph>
+          <a href={data.html_url} target="_blank" rel="noopener noreferrer">
+            View on Github
+          </a>
+        </Paragraph>
+      </Header>
       <br />
       <Loading visible={isFetching} />
       <Error visible={Boolean(error)} message={error} />
@@ -61,12 +68,6 @@ function Repo() {
               {item.label}: <Highlight>{item.value}</Highlight>
             </Paragraph>
           ))}
-          <br />
-          <Paragraph>
-            <a href={data.html_url} target="_blank" rel="noopener noreferrer">
-              View on Github
-            </a>
-          </Paragraph>
           <Readme source={readme} />
         </article>
       )}

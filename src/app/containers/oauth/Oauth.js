@@ -19,8 +19,6 @@ function Oauth() {
     }
   }, [authenticationCode, dispatch, matchesSecretToken]);
 
-  console.log('auth, ', auth);
-
   if (auth.error) {
     return (
       <>
