@@ -35,5 +35,3 @@ function Oauth() {
 }
 
 export default Oauth;
-
-// REACT_APP_DOMAIN=https://447f7b4f.ngrok.io
