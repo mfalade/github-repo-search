@@ -7,15 +7,15 @@ const app = express();
 
 dotenv.config();
 const {
-  REACT_APP_GITHUB_CLIENT_ID,
-  REACT_APP_GITHUB_CLIENT_SECRET,
-  REACT_APP_GITHUB_SECRET_KEY,
+  MFALADE_SALTOKS_GITHUB_CLIENT_ID,
+  MFALADE_SALTOKS_GITHUB_CLIENT_SECRET,
+  MFALADE_SALTOKS_GITHUB_SECRET_KEY,
   OAUTH_HOST,
   OAUTH_PORT,
   OAUTH_PATH,
   OAUTH_METHOD,
   PROXY_SERVER_PORT,
-  REACT_APP_DOMAIN,
+  MFALADE_SALTOKS_DOMAIN,
 } = process.env;
 const port = process.env.PORT || PROXY_SERVER_PORT;
 
@@ -31,11 +31,11 @@ function authenticate(code) {
     {
       code,
       grant_type: 'authorization_code',
-      client_id: REACT_APP_GITHUB_CLIENT_ID,
-      client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
-      state: REACT_APP_GITHUB_SECRET_KEY,
-      redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
-      code_verifier: REACT_APP_GITHUB_SECRET_KEY,
+      client_id: MFALADE_SALTOKS_GITHUB_CLIENT_ID,
+      client_secret: MFALADE_SALTOKS_GITHUB_CLIENT_SECRET,
+      state: MFALADE_SALTOKS_GITHUB_SECRET_KEY,
+      redirect_uri: `${MFALADE_SALTOKS_DOMAIN}/oauth`,
+      code_verifier: MFALADE_SALTOKS_GITHUB_SECRET_KEY,
     },
     { encode: false },
   );
