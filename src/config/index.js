@@ -1,1 +1,0 @@
-export const SEARCH_DEBOUNCE_INTERVAL = 400;
