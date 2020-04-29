@@ -1,5 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
+import LazyLoad from 'react-lazyload';
 
 import Avatar from 'app/components/avatar';
 
@@ -19,7 +20,9 @@ function RepositoryCard({ repository }) {
     <RepositoryCardContainer language={language} data-cy="search-item">
       <Header>
         <AvatarContainer>
-          <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
+          <LazyLoad height={20}>
+            <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
+          </LazyLoad>
         </AvatarContainer>
         <p>{get(repository, 'owner.login')}</p>
       </Header>

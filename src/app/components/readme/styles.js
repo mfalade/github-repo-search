@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ReadmeContainer = styled.article`
-  border: 1px solid ${({ theme }) => theme.color.gray2};
+  border: 1px solid ${({ theme }) => theme.color.gray4};
   border-radius: ${({ theme }) => theme.spacing.xxs};
   padding: ${({ theme }) => theme.spacing.xl};
 

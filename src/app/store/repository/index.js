@@ -8,7 +8,12 @@ import { getErrorMessage, trimRepositoryFields } from 'app/store/helpers';
 const initialRepositoryState = {
   isFetching: false,
   data: {},
-  readme: '',
+  error: null,
+  readme: {
+    isFetching: false,
+    data: '',
+    error: null,
+  },
 };
 
 export const repositorySlice = createSlice({
@@ -19,19 +24,29 @@ export const repositorySlice = createSlice({
       state.data = {};
       state.isFetching = true;
       state.error = null;
-      state.readme = '';
+      state.readme = {};
     },
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
       state.isFetching = false;
       state.data = payload;
     },
-    setReadmeData: (state, { payload }) => {
-      state.readme = payload;
-    },
     executeFailureHandler: (state, { payload }) => {
       state.isFetching = false;
       state.error = payload;
+    },
+    setReadmeData: (state, { payload }) => {
+      state.readme.data = payload;
+      state.readme.isFetching = false;
+    },
+    setReadmeError: (state, { payload }) => {
+      state.readme.error = payload;
+      state.readme.isFetching = false;
+    },
+    initializeReadmeFetch: (state) => {
+      state.readme.data = '';
+      state.readme.isFetching = true;
+      state.readme.error = null;
     },
   },
 });
@@ -41,6 +56,8 @@ export const {
   executeSuccessHandler,
   executeFailureHandler,
   setReadmeData,
+  setReadmeError,
+  initializeReadmeFetch,
 } = repositorySlice.actions;
 
 export const fetchRepositoryDetails = (repositoryName) => async (
@@ -61,18 +78,25 @@ export const fetchRepositoryDetails = (repositoryName) => async (
     }
 
     const trimmed = trimRepositoryFields(repository);
-    // set repository data once it's available
     dispatch(executeSuccessHandler(trimmed));
-
-    // set readme data without blocking repository data
-    const readme = await getReadme(repositoryName);
-    dispatch(setReadmeData(readme));
   } catch (error) {
     const errorMessage = getErrorMessage(error);
     dispatch(executeFailureHandler(errorMessage));
   }
 };
 
+export const fetchReadme = (repositoryName) => async (dispatch) => {
+  dispatch(initializeReadmeFetch());
+  try {
+    const readme = await getReadme(repositoryName);
+    dispatch(setReadmeData(readme));
+  } catch (error) {
+    const errorMessage = getErrorMessage(error);
+    dispatch(setReadmeError(errorMessage));
+  }
+};
+
 export const repositorySelector = (state) => state.repository;
+export const readmeSelector = (state) => state.repository.readme;
 
 export default repositorySlice.reducer;

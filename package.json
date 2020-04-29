@@ -17,6 +17,7 @@
     "qs": "^6.9.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-lazyload": "^2.6.7",
     "react-markdown": "^4.3.1",
     "react-masonry-css": "^1.0.14",
     "react-paginate": "^6.3.2",

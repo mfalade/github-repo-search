@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash/get';
+import LazyLoad from 'react-lazyload';
 
+import Readme from 'app/containers/readme';
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
-import Readme from 'app/components/readme';
 import { useTimeZone, useQueryParams } from 'app/hooks';
 import {
   fetchRepositoryDetails,
@@ -22,7 +23,7 @@ function Repo() {
   const { queryParams, hasParsedQueryParams } = useQueryParams();
 
   const repoUrl = queryParams.name;
-  const { data, readme, isFetching, error } = repository;
+  const { data, isFetching, error } = repository;
   const created = getRelativeCreationTime(data.created_at, timeZone);
   const showRepositoryDetails = !error && !isFetching && repoUrl;
 
@@ -72,7 +73,9 @@ function Repo() {
               {item.label}: <Highlight>{item.value}</Highlight>
             </Paragraph>
           ))}
-          <Readme source={readme} />
+          <LazyLoad offset={-20}>
+            <Readme repoUrl={repoUrl} />
+          </LazyLoad>
         </article>
       )}
     </RepoContainer>
