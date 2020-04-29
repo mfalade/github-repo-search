@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import get from 'lodash/get';
 
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
@@ -32,14 +33,15 @@ function Repo() {
   }, [dispatch, repoUrl]);
 
   const renderedItems = [
-    { label: 'Name', value: data.full_name },
-    { label: 'Description', value: data.description },
-    { label: 'Language', value: data.language },
-    { label: 'Is Private', value: String(data.private) },
+    { label: 'Author', value: get(data, 'owner.login') },
+    { label: 'Repository name', value: get(data, 'full_name') },
+    { label: 'Description', value: get(data, 'description') },
+    { label: 'Language', value: get(data, 'language') },
+    { label: 'Is Private', value: String(get(data, 'private')) },
     { label: 'Created', value: created },
-    { label: 'Watchers count', value: data.watchers_count },
-    { label: 'Forks count', value: data.forks_count },
-    { label: 'Open issues count', value: data.open_issues_count },
+    { label: 'Watchers count', value: get(data, 'watchers_count') },
+    { label: 'Forks count', value: get(data, 'forks_count') },
+    { label: 'Open issues count', value: get(data, 'open_issues_count') },
   ];
 
   if (hasParsedQueryParams && !repoUrl) {
