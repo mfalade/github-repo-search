@@ -1,5 +1,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+# `Important`
+
+## Getting started
+
+Copy the contents of the `.env.example` to a `.env` file in the root of the project before starting the app.
+
+The values provided in the `env.example` file are enough to get the app running to perform the basic search.
+
+To use Github Oauth, you'd need a Github clientId and secret which I haven't included in this repo. I'm happy to provide those once you need them.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -27,7 +38,7 @@ The build is minified and the filenames include the hashes.<br />
 
 ### `Notes`
 
-Implementing Github OAuth came with a few challenges.
+1. Implementing Github OAuth came with a few challenges.
 
 The first challenge was that after a user logs in via the GitHub UI, they are redirected to this application with an authentication code as expected.
 
