@@ -25,7 +25,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br />
 
-## Notes
+### `Notes`
 
 Implementing Github OAuth came with a few challenges.
 
@@ -37,3 +37,7 @@ The challenge is that, the API doesn't support CORS requests from the browser
 [Link to issue here](https://github.com/isaacs/github/issues/330)
 
 To resolve this, I had to create a NODEJS proxy to make the authentication request to retrieve the `access_token`
+
+### `TODO`
+
+- Fix console warnings introduced by React LazyLoad library

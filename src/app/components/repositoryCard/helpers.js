@@ -3,7 +3,7 @@ import lowerCase from 'lodash/lowerCase';
 import get from 'lodash/get';
 import truncate from 'lodash/truncate';
 
-import { LANGUAGE_COLOR_MAP } from './constants';
+import theme from 'app/theme';
 
 export const getSearchValue = (repository) => {
   return qs.stringify(
@@ -15,8 +15,9 @@ export const getSearchValue = (repository) => {
 };
 
 export const getBackgroundColor = (language) => {
+  const { languageColorMap } = theme;
   const lang = lowerCase(language);
-  return LANGUAGE_COLOR_MAP[lang] || LANGUAGE_COLOR_MAP['javascript'];
+  return languageColorMap[lang] || languageColorMap['javascript'];
 };
 
 export const truncateDescription = (description) => {
