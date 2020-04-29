@@ -13,10 +13,11 @@ export const ReadmeContainer = styled.article`
   // style code blocks
   pre,
   code {
-    background: ${({ theme }) => theme.color.purple3};
-    border: 1px solid ${({ theme }) => theme.color.purple3};
+    background: ${({ theme }) => theme.color.gray3};
+    border: 1px solid ${({ theme }) => theme.color.gray4};
     padding: ${({ theme }) => theme.spacing.xxs};
     border-radius: ${({ theme }) => theme.spacing.xxs};
+    overflow-x: scroll;
   }
 
   pre {
@@ -25,6 +26,7 @@ export const ReadmeContainer = styled.article`
 
   pre code {
     padding: 0;
+    border: none;
   }
 `;
 
