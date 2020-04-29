@@ -2,13 +2,14 @@ export const SEARCH_DEBOUNCE_INTERVAL = 500;
 export const LIST_ITEMS_PER_PAGE = 50;
 
 export const GOOGLE = {
-  TIMEZONE_API_URL: 'https://maps.googleapis.com/maps/api/timezone/json',
+  API_KEY: process.env.REACT_APP_GOOGLE_API_KEY,
+  TIMEZONE_API_URL: process.env.REACT_APP_GOOGLE_API_URL,
 };
 
 export const GITHUB = {
-  API_URL: 'https://api.github.com',
-  OAUTH_AUTHORIZATION_URL: 'https://github.com/login/oauth/authorize',
-  OAUTH_TOKEN_URL: 'https://github.com/login/oauth/access_token  ',
+  API_URL: process.env.REACT_APP_GITHUB_API_URL,
+  OAUTH_AUTHORIZATION_URL: process.env.REACT_APP_OAUTH_AUTHORIZATION_URL,
+  REACT_APP_OAUTH_TOKEN_URL: process.env.OAUTH_TOKEN_URL,
 };
 
 export const APP = {

@@ -27,32 +27,42 @@ const corsMiddleware = (req, res, next) => {
 };
 
 function authenticate(code) {
-  const payload = qs.stringify({
-    code,
-    client_id: REACT_APP_GITHUB_CLIENT_ID,
-    state: REACT_APP_GITHUB_SECRET_KEY,
-    client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
-    redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
-  });
+  const payload = qs.stringify(
+    {
+      code,
+      grant_type: 'authorization_code',
+      client_id: REACT_APP_GITHUB_CLIENT_ID,
+      client_secret: REACT_APP_GITHUB_CLIENT_SECRET,
+      state: REACT_APP_GITHUB_SECRET_KEY,
+      redirect_uri: `${REACT_APP_DOMAIN}/oauth`,
+      code_verifier: REACT_APP_GITHUB_SECRET_KEY,
+    },
+    { encode: false },
+  );
   const reqOptions = {
     host: OAUTH_HOST,
     port: OAUTH_PORT,
     path: OAUTH_PATH,
     method: OAUTH_METHOD,
-    headers: { 'content-length': payload.length },
+    headers: {
+      'content-length': payload.length,
+      'User-Agent': 'Node-oauth',
+    },
   };
 
   return new Promise((resolve, reject) => {
-    let body = '';
-    const req = https.request(reqOptions, (res) => {
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => (body += chunk));
-      res.on('end', () => resolve(qs.parse(body)));
+    let result = '';
+    const request = https.request(reqOptions);
+    request.on('response', (response) => {
+      response.setEncoding('utf8');
+      response.on('data', (chunk) => (result += chunk));
+      response.on('close', () => resolve(qs.parse(result)));
+      response.on('end', () => resolve(qs.parse(result)));
     });
-    console.log('Authenticating: ', payload);
-    req.write(payload);
-    req.end();
-    req.on('error', (e) => reject(e.message));
+
+    request.write(payload);
+    request.end();
+    request.on('error', (e) => reject(e.message));
   });
 }
 
