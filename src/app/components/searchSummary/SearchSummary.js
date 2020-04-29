@@ -15,7 +15,8 @@ function SearchSummary({ visible, userQuery, repositories }) {
   return (
     Boolean(userQuery) && (
       <Text data-cy="search-summary">
-        Found <Highlight>{formattedItemsCount}</Highlight> {` ${subject} for `}
+        Found <Highlight>{formattedItemsCount}</Highlight>
+        {` ${subject} for `}
         <Highlight>{userQuery}</Highlight>
       </Text>
     )
@@ -32,7 +33,7 @@ SearchSummary.propTypes = {
 
 SearchSummary.defaultProps = {
   visible: false,
-  userQuery: 'false',
+  userQuery: '',
   repositories: {
     totalItemsCount: 0,
   },

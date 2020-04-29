@@ -6,6 +6,11 @@ import { Highlight } from './styles';
 
 function RequestDuration({ visible, requestStart, requestEnd }) {
   const duration = getDuration(requestStart, requestEnd);
+
+  if (!visible) {
+    return null;
+  }
+
   return (
     visible && (
       <p>
