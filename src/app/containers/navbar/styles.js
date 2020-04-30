@@ -27,4 +27,8 @@ export const Text = styled.p`
 export const RightCol = styled.div`
   display: flex;
   align-items: center;
+
+  img {
+    margin-right: ${({ theme }) => theme.spacing.sm};
+  }
 `;

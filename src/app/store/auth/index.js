@@ -3,7 +3,6 @@ import get from 'lodash/get';
 
 import { SLICES } from 'app/store/constants';
 import { fetchUserData } from 'app/api/github';
-import githubClient from 'app/api/github/client';
 import {
   setAccessToken,
   getAccessToken,
@@ -38,6 +37,10 @@ export const authSlice = createSlice({
       state.isFetching = false;
       state.error = payload;
     },
+    clearUserData: (state) => {
+      state.user.accessToken = null;
+      state.user.data = {};
+    },
   },
 });
 
@@ -45,11 +48,11 @@ export const {
   initializeRequest,
   executeSuccessHandler,
   executeFailureHandler,
+  clearUserData,
 } = authSlice.actions;
 
 export const fetchUser = (accessToken) => async (dispatch) => {
   setAccessToken(accessToken);
-  githubClient.refreshInstance();
   dispatch(initializeRequest());
   try {
     const response = await fetchUserData(accessToken);
@@ -70,6 +73,11 @@ export const fetchUser = (accessToken) => async (dispatch) => {
     const errorMessage = get(error, 'message') || 'An error occurred';
     dispatch(executeFailureHandler(errorMessage));
   }
+};
+
+export const logoutUser = () => async (dispatch) => {
+  localStorage.clear();
+  dispatch(clearUserData());
 };
 
 export const authSelector = (state) => state.auth;

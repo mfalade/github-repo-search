@@ -6,7 +6,6 @@ export default function useQueryParams() {
   const [hasParsedQueryParams, setHasParsedQueryParams] = useState(false);
   const [queryParams, setQueryParams] = useState({});
   const location = useLocation();
-  console.log(location, 'location ...');
 
   useEffect(() => {
     const q = qs.parse(location.search, { ignoreQueryPrefix: true });

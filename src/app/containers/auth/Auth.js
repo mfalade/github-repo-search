@@ -6,7 +6,7 @@ import lowerCase from 'lodash/lowerCase';
 
 import Error from 'app/components/error';
 import { useQueryParams } from 'app/hooks';
-import { fetchUser, authSelector } from 'app/store/auth';
+import { authSelector, fetchUser } from 'app/store/auth';
 
 import { AUTH_STATE } from './constants';
 
