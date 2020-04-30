@@ -1,15 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
-
-# `Important`
-
 ## Getting started
 
-Copy the contents of the `.env.example` to a `.env` file in the root of the project before starting the app.
+1. Copy the contents of the `.env.example` to a `.env` file in the root of the project before starting the app.
 
-The values provided in the `env.example` file are enough to get the app running to perform the basic search.
+   The values provided in the `env.example` file are enough to get the app running to perform the basic search.
 
-To use Github Oauth, you'd need a Github clientId and secret which I haven't included in this repo. I'm happy to provide those once you need them.
+2. To use Github Oauth, you'd need a Github clientId and secret which I haven't included in this repo. I'm happy to provide those once you need them.
+   You'd also need so start a nodejs server which would help with the authentication flow.
 
+   For this, you'd need to run the `yarn run:all` command.
+   This would launch both the client and server app.
 
 ## Available Scripts
 
@@ -17,17 +16,30 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
+Runs the client app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `yarn start:server`
+
+Runs the node server that handles Github OAuth in development mode.
+The api is available on [http://localhost:3001](http://localhost:3001).
+
+### `yarn start:all`
+
+Launches both the client and server applications so you can easily test the OAuth flow.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the unit test runner in the interactive watch mode.
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn test:e2e`
 
-Launches a cypress test runner.
+Runs Cypress tests to completion. By default, cypress run will run all tests headlessly in the Electron browser.
+
+### `yarn cypress:open`
+
+Launches the Cypress test runner.
 
 ### `yarn build`
 
@@ -38,16 +50,13 @@ The build is minified and the filenames include the hashes.<br />
 
 ### `Notes`
 
-1. Implementing Github OAuth came with a few challenges.
+1.  Implementing Github OAuth came with a few challenges.
 
-The first challenge was that after a user logs in via the GitHub UI, they are redirected to this application with an authentication code as expected.
+    The API doesn't support CORS requests from the browser
 
-I'm supposed to exchange this code for an access_token via Github's `/login/oauth/access_token` endpoint.
+    [Link to issue here](https://github.com/isaacs/github/issues/330)
 
-The challenge is that, the API doesn't support CORS requests from the browser
-[Link to issue here](https://github.com/isaacs/github/issues/330)
-
-To resolve this, I had to create a NODEJS proxy to make the authentication request to retrieve the `access_token`
+    To resolve this, I had to create a NODEJS server to make the authentication request to retrieve the `access_token`
 
 ### `TODO`
 
