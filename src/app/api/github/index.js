@@ -1,8 +1,9 @@
 import { GITHUB, LIST_ITEMS_PER_PAGE } from 'app/config';
 
-import githubClient from './client';
+import createClient from './client';
 
 export const getRepositories = async ({ repositoryName, page }) => {
+  const githubClient = createClient();
   const resource = `${GITHUB.API_URL}/search/repositories`;
   const params = {
     params: { q: repositoryName, page, per_page: LIST_ITEMS_PER_PAGE },
@@ -16,6 +17,7 @@ export const getRepositories = async ({ repositoryName, page }) => {
 };
 
 export const getReadme = async (repositoryName) => {
+  const githubClient = createClient({ useAuthorizationHeaders: false });
   try {
     const preferredReadmeResource = `${GITHUB.API_URL}/repos/${repositoryName}/readme`;
     const preferredReadme = await githubClient.get(preferredReadmeResource);
@@ -28,6 +30,7 @@ export const getReadme = async (repositoryName) => {
 };
 
 export const getRepository = async (repositoryName) => {
+  const githubClient = createClient();
   const repoResource = `${GITHUB.API_URL}/repos/${repositoryName}`;
   try {
     const repo = await githubClient.get(repoResource);
@@ -38,6 +41,7 @@ export const getRepository = async (repositoryName) => {
 };
 
 export const fetchUserData = async () => {
+  const githubClient = createClient();
   const userResource = `${GITHUB.API_URL}/user`;
   try {
     const response = await githubClient.get(userResource);
