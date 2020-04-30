@@ -142,6 +142,7 @@
       "/Users/mayor/Desktop/codeVilla/temp/saltoks-assignment/src"
     ],
     "moduleNameMapper": {
+      "^app(.*)$": "<rootDir>/src/app$1",
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
