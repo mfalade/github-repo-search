@@ -2,16 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 import get from 'lodash/get';
 
 import { SLICES } from 'app/store/constants';
-import { authenticateUserByCode } from 'app/api/github';
-import { refreshGithubClientToken } from 'app/api/github/client';
-import { setAuthToken, getAuthToken } from 'app/lib/auth';
+import { fetchUserData } from 'app/api/github';
+import githubClient from 'app/api/github/client';
+import {
+  setAccessToken,
+  getAccessToken,
+  setUserData,
+  getUserData,
+} from 'app/lib/auth';
 
 const initialAuthState = {
   isFetching: false,
   error: null,
   user: {
-    token: getAuthToken(),
-    data: {},
+    accessToken: getAccessToken(),
+    data: getUserData(),
   },
 };
 
@@ -26,7 +31,8 @@ export const authSlice = createSlice({
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
       state.isFetching = false;
-      state.user.token = payload;
+      state.user.accessToken = payload.accessToken;
+      state.user.data = payload.userData;
     },
     executeFailureHandler: (state, { payload }) => {
       state.isFetching = false;
@@ -41,23 +47,25 @@ export const {
   executeFailureHandler,
 } = authSlice.actions;
 
-export const authenticateUser = (authenticationCode) => async (dispatch) => {
+export const fetchUser = (accessToken) => async (dispatch) => {
+  setAccessToken(accessToken);
+  githubClient.refreshInstance();
   dispatch(initializeRequest());
   try {
-    const response = await authenticateUserByCode(authenticationCode);
-
+    const response = await fetchUserData(accessToken);
     const errorMessage =
       get(response, 'error.message') ||
       get(response, 'error_description') ||
       get(response, 'error');
+
     if (errorMessage) {
+      // Github's api sometimes sends a 200 when errors occur.
+      // Checking for errors before assuming success status
       return dispatch(executeFailureHandler(errorMessage));
     }
 
-    const authToken = 'dummyToken';
-    setAuthToken(setAuthToken);
-    refreshGithubClientToken(authToken);
-    dispatch(executeSuccessHandler(authToken));
+    setUserData(response);
+    dispatch(executeSuccessHandler({ accessToken, userData: response }));
   } catch (error) {
     const errorMessage = get(error, 'message') || 'An error occurred';
     dispatch(executeFailureHandler(errorMessage));

@@ -1,28 +1,40 @@
 import axios from 'axios';
 
 import { GITHUB } from 'app/config';
-import { getAuthToken } from 'app/lib/auth';
+import { getAccessToken } from 'app/lib/auth';
 
-export const createGithubClient = () => {
-  const authToken = getAuthToken();
-  const commonHeaders = {};
+class GithubClient {
+  _instance = null;
 
-  if (authToken) {
-    commonHeaders['Authorization'] = `token ${authToken}`;
+  constructor() {
+    this.createInstance();
   }
-  return axios.create({
-    baseURL: GITHUB.API_URL,
-    headers: { common: commonHeaders },
-  });
-};
 
-const githubClient = createGithubClient();
-
-export const refreshGithubClientToken = () => {
-  const authToken = getAuthToken();
-  if (authToken) {
-    githubClient.headers.common.Authorization = `token ${authToken}`;
+  createInstance() {
+    console.log(getAccessToken(), 'aceesss token...');
+    this.instance = axios.create({
+      baseURL: GITHUB.API_URL,
+      headers: {
+        Authorization: {
+          toString() {
+            return `token ${getAccessToken()}`;
+          },
+        },
+      },
+    });
   }
-};
 
-export default githubClient;
+  refreshInstance() {
+    this.createInstance();
+  }
+
+  set instance(value) {
+    this._instance = value;
+  }
+
+  get instance() {
+    return this._instance;
+  }
+}
+
+export default new GithubClient();

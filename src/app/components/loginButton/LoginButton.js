@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { LoginButtonComponent } from './styles';
+import Button from 'app/components/button';
+
 import { getOauthLink } from './helpers';
 
 function LoginButton() {
@@ -10,9 +11,9 @@ function LoginButton() {
   };
 
   return (
-    <LoginButtonComponent onClick={handleClick} type="button">
+    <Button onClick={handleClick} type="button">
       Login with Github
-    </LoginButtonComponent>
+    </Button>
   );
 }
 

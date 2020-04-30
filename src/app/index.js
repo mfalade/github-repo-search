@@ -1,21 +1,18 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { useTimeZone } from 'app/hooks';
-import LoginButton from 'app/components/loginButton';
+import Navbar from 'app/containers/navbar';
 
 import routes from './routes';
-import { AppContainer, Header, Main, Footer } from './indexStyles';
+import { AppContainer, Main, Footer } from './indexStyles';
 
 function App() {
   useTimeZone();
 
   return (
     <AppContainer>
-      <Header>
-        <Link to="/">Repo Search</Link>
-        <LoginButton />
-      </Header>
+      <Navbar />
 
       <Main>
         <Switch>

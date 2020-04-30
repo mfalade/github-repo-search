@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginButtonComponent = styled.button`
+export const StyledButton = styled.button`
   padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
   color: ${({ theme }) => theme.color.white};
   background: ${({ theme }) => theme.color.purple1};

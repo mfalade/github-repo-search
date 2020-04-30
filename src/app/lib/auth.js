@@ -1,7 +1,20 @@
-export const getAuthToken = () => {
-  return localStorage.getItem('GITHUB_AUTH_TOKEN');
+export const getAccessToken = () => {
+  return localStorage.getItem('GITHUB_ACCESS_TOKEN');
 };
 
-export const setAuthToken = (token) => {
-  return localStorage.getItem('GITHUB_AUTH_TOKEN', token);
+export const setAccessToken = (token) => {
+  return localStorage.setItem('GITHUB_ACCESS_TOKEN', token);
+};
+
+export const getUserData = () => {
+  const userData = localStorage.getItem('USER_DATA');
+  if (userData) {
+    return JSON.parse(userData);
+  }
+  return {};
+};
+
+export const setUserData = (data) => {
+  const stringified = JSON.stringify(data);
+  return localStorage.setItem('USER_DATA', stringified);
 };
