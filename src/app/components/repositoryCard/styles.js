@@ -21,14 +21,6 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing.xs};
-
-  img {
-    margin-right: ${({ theme }) => theme.spacing.xs};
-  }
-
-  * {
-    display: inline-block;
-  }
 `;
 
 export const AvatarContainer = styled.div`

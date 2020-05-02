@@ -21,7 +21,10 @@ function RepositoryCard({ repository }) {
       <Header>
         <AvatarContainer>
           <LazyLoad height={20}>
-            <Avatar avatarUrl={get(repository, 'owner.avatar_url')} />
+            <Avatar
+              avatarUrl={get(repository, 'owner.avatar_url')}
+              alt={`@${get(repository, 'owner.login')}`}
+            />
           </LazyLoad>
         </AvatarContainer>
         <p>{get(repository, 'owner.login')}</p>

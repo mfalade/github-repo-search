@@ -27,7 +27,7 @@ function Navbar() {
       {isAuthenticated && (
         <RightCol>
           <Text>Logged in as {username}</Text>
-          <Avatar avatarUrl={avatarUrl} />
+          <Avatar avatarUrl={avatarUrl} alt={username} />
           <Button type="button" onClick={handleLogout}>
             Logout
           </Button>
