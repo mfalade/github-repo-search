@@ -13,7 +13,6 @@ function App() {
   return (
     <AppContainer>
       <Navbar />
-
       <Main>
         <Switch>
           {routes.map(({ id, ...route }) => (
@@ -21,7 +20,6 @@ function App() {
           ))}
         </Switch>
       </Main>
-
       <Footer data-cy="footer">Submitted by Mayowa Falade</Footer>
     </AppContainer>
   );

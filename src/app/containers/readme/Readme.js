@@ -24,9 +24,12 @@ function Readme({ repoUrl }) {
 
   return (
     <section data-cy="readme-container">
-      {error && <Error visible message={`Error fetching readme: ${error}`} />}
-      {isFetching && <Loading visible message="Fetching readme ..." />}
-      {data && <ReadmeRenderer source={data} />}
+      <Error
+        visible={Boolean(error)}
+        message={`Error fetching readme: ${error}`}
+      />
+      <Loading visible={isFetching} message="Fetching readme ..." />
+      <ReadmeRenderer source={data} />
     </section>
   );
 }
