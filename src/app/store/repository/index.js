@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getRepository, getReadme } from 'app/api/github';
 import { SLICES } from 'app/store/constants';
+import { getRepository, getReadme } from 'app/api/github';
 import { repositoriesSelector } from 'app/store/repositories';
 import { getErrorMessage, trimRepositoryFields } from 'app/store/helpers';
 
@@ -22,18 +22,18 @@ export const repositorySlice = createSlice({
   reducers: {
     initializeRequest: (state) => {
       state.data = {};
-      state.isFetching = true;
-      state.error = null;
       state.readme = {};
+      state.error = null;
+      state.isFetching = true;
     },
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
-      state.isFetching = false;
       state.data = payload;
+      state.isFetching = false;
     },
     executeFailureHandler: (state, { payload }) => {
-      state.isFetching = false;
       state.error = payload;
+      state.isFetching = false;
     },
     setReadmeData: (state, { payload }) => {
       state.readme.data = payload;
@@ -45,8 +45,8 @@ export const repositorySlice = createSlice({
     },
     initializeReadmeFetch: (state) => {
       state.readme.data = '';
-      state.readme.isFetching = true;
       state.readme.error = null;
+      state.readme.isFetching = true;
     },
   },
 });

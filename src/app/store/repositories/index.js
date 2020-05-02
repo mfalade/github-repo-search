@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getRepositories } from 'app/api/github';
 import { SLICES } from 'app/store/constants';
+import { getRepositories } from 'app/api/github';
 import {
   getErrorMessage,
-  trimRepositoriesFields,
   setPaginationData,
+  trimRepositoriesFields,
 } from 'app/store/helpers';
 
 const initialRepositoriesState = {
-  userQuery: '',
-  isFetchComplete: false,
-  isFetching: false,
   items: [],
-  currentPage: 1,
-  totalItemsCount: 0,
-  totalNumPages: 0,
   error: null,
-  requestStart: 0,
+  userQuery: '',
   requestEnd: 0,
+  requestStart: 0,
+  totalNumPages: 0,
+  totalItemsCount: 0,
+  currentPage: 1,
+  isFetching: false,
+  isFetchComplete: false,
 };
 
 export const repositoriesSlice = createSlice({
@@ -26,10 +26,10 @@ export const repositoriesSlice = createSlice({
   initialState: initialRepositoriesState,
   reducers: {
     initializeRequest: (state) => {
-      state.requestStart = 0;
-      state.requestEnd = 0;
       state.isFetchComplete = false;
       state.isFetching = true;
+      state.requestStart = 0;
+      state.requestEnd = 0;
       state.error = null;
     },
     setRequestStartTime: (state) => {
@@ -40,20 +40,20 @@ export const repositoriesSlice = createSlice({
     },
     executeSuccessHandler: (state, { payload }) => {
       state.error = null;
-      state.isFetchComplete = true;
       state.isFetching = false;
+      state.isFetchComplete = true;
       state.items = payload.items;
       state.currentPage = payload.currentPage;
-      state.totalItemsCount = payload.totalItemsCount;
       state.totalNumPages = payload.totalNumPages;
+      state.totalItemsCount = payload.totalItemsCount;
     },
     executeFailureHandler: (state, { payload }) => {
-      state.isFetching = false;
       state.error = payload;
+      state.isFetching = false;
     },
     setUserQuery: (state, { payload }) => {
-      state.isFetchComplete = false;
       state.userQuery = payload;
+      state.isFetchComplete = false;
     },
   },
 });

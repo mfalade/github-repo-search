@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import get from 'lodash/get';
 
 import { SLICES } from 'app/store/constants';
 import { fetchUserData } from 'app/api/github';
+import { getErrorMessage, getResponseError } from 'app/store/helpers';
 import {
   setAccessToken,
   getAccessToken,
@@ -56,10 +56,7 @@ export const fetchUser = (accessToken) => async (dispatch) => {
   dispatch(initializeRequest());
   try {
     const response = await fetchUserData(accessToken);
-    const errorMessage =
-      get(response, 'error.message') ||
-      get(response, 'error_description') ||
-      get(response, 'error');
+    const errorMessage = getResponseError(response);
 
     if (errorMessage) {
       // Github's api sometimes sends a 200 when errors occur.
@@ -70,7 +67,7 @@ export const fetchUser = (accessToken) => async (dispatch) => {
     setUserData(response);
     dispatch(executeSuccessHandler({ accessToken, userData: response }));
   } catch (error) {
-    const errorMessage = get(error, 'message') || 'An error occurred';
+    const errorMessage = getErrorMessage(error);
     dispatch(executeFailureHandler(errorMessage));
   }
 };

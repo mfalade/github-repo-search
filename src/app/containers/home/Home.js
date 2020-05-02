@@ -5,10 +5,10 @@ import debounce from 'lodash/debounce';
 import Error from 'app/components/error';
 import Loading from 'app/components/loading';
 import Pagination from 'app/components/pagination';
-import RequestDuration from 'app/components/requestDuration';
-import RepositoriesList from 'app/components/repositoriesList';
 import SearchForm from 'app/components/searchForm';
 import SearchSummary from 'app/components/searchSummary';
+import RequestDuration from 'app/components/requestDuration';
+import RepositoriesList from 'app/components/repositoriesList';
 import {
   setUserQuery,
   fetchRepositories,
