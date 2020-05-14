@@ -1,6 +1,8 @@
-import Home from 'app/containers/home';
-import Repo from 'app/containers/repo';
-import Auth from 'app/containers/auth';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('app/containers/home'));
+const Repo = lazy(() => import('app/containers/repo'));
+const Auth = lazy(() => import('app/containers/auth'));
 
 export default [
   { path: '/', exact: true, component: Home, id: 'home' },
