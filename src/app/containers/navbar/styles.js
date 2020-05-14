@@ -31,4 +31,8 @@ export const RightCol = styled.div`
   img {
     margin-right: ${({ theme }) => theme.spacing.sm};
   }
+
+  * {
+    display: inline-block;
+  }
 `;

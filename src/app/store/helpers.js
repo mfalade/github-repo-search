@@ -36,10 +36,12 @@ export const setPaginationData = (response, page) => {
   };
 };
 
-export const getErrorMessage = (apiError) => {
-  return (
-    get(apiError, 'response.data.message') ||
-    get(apiError, 'message') ||
-    'An error occurred'
-  );
-};
+export const getErrorMessage = (apiError) =>
+  get(apiError, 'response.data.message') ||
+  get(apiError, 'message') ||
+  'An error occurred';
+
+export const getResponseError = (response) =>
+  get(response, 'error.message') ||
+  get(response, 'error_description') ||
+  get(response, 'error');

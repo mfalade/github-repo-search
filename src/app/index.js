@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { useTimeZone } from 'app/hooks';
+import Loading from 'app/components/loading';
 import Navbar from 'app/containers/navbar';
 
 import routes from './routes';
@@ -13,15 +14,15 @@ function App() {
   return (
     <AppContainer>
       <Navbar />
-
       <Main>
-        <Switch>
-          {routes.map(({ id, ...route }) => (
-            <Route {...route} key={id} />
-          ))}
-        </Switch>
+        <Suspense fallback={<Loading />}>
+          <Switch>
+            {routes.map(({ id, ...route }) => (
+              <Route {...route} key={id} />
+            ))}
+          </Switch>
+        </Suspense>
       </Main>
-
       <Footer data-cy="footer">Submitted by Mayowa Falade</Footer>
     </AppContainer>
   );
