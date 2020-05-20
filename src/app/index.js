@@ -15,7 +15,7 @@ function App() {
     <AppContainer>
       <Navbar />
       <Main>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading visible message="Please wait..." />}>
           <Switch>
             {routes.map(({ id, ...route }) => (
               <Route {...route} key={id} />

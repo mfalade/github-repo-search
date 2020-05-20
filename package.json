@@ -1,5 +1,5 @@
 {
-  "name": "saltoks-assignment",
+  "name": "gr-search",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -139,7 +139,7 @@
       "^.+\\.module\\.(css|sass|scss)$"
     ],
     "modulePaths": [
-      "/Users/mayor/Desktop/codeVilla/temp/saltoks-assignment/src"
+      "/Users/mayor/Desktop/codeVilla/temp/gr-search/src"
     ],
     "moduleNameMapper": {
       "^app(.*)$": "<rootDir>/src/app$1",
