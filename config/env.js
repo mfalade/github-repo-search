@@ -56,9 +56,9 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
   .map((folder) => path.resolve(appDirectory, folder))
   .join(path.delimiter);
 
-// Grab NODE_ENV and MFALADE_SALTOKS_* environment variables and prepare them to be
+// Grab NODE_ENV and GR_SEARCH_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in webpack configuration.
-const REACT_APP = /^MFALADE_SALTOKS_/i;
+const REACT_APP = /^GR_SEARCH_/i;
 
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
